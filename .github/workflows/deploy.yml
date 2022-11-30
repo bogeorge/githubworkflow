@@ -1,0 +1,28 @@
+name: 'Deploy Lambda Using SAM CLI'
+
+on:
+  workflow_call:
+    # inputs:
+    #   access-key-id:
+    #     required: true
+    #     type: string
+    #   secret-access-key:
+    #     required: true
+    #     type: string
+    #   region:
+    #     required: true
+    #     type: string
+
+jobs:
+  deploy: 
+    name: Deploy to ${{ github.environment }} 
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download Build Outputs
+        uses: actions/download-artifact@v3
+        with:
+          name: dist
+
+      - name: List files in the repository
+        run: ls ${{ github.workspace }}         
