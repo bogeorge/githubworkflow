@@ -32,9 +32,15 @@ jobs:
 
       # generate our documentation
       # - run: yarn doc
+
+      - Upload Build Outputs
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: dist
   
-  deploybeta:
-    name: Deploy to Beta Environment
+  deploy-beta:
+    name: Deploy Beta
     needs: [ build ]
     runs-on: ubuntu-latest
 
