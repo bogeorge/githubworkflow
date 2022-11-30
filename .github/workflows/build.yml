@@ -60,21 +60,24 @@ jobs:
       environment: beta
     needs: [ build ]
 
-  deploy-qa: Deploy QA
+  deploy-qa: 
+    name: Deploy QA
     if: github.ref_name == 'main'
     uses: ./.github/workflows/deploy.yml
     with:
       environment: qa
     needs: [ deploy-beta ]
 
-  deploy-uat: Deploy UAT
+  deploy-uat: 
+    name: Deploy UAT
     if: github.ref_name == 'main'
     uses: ./.github/workflows/deploy.yml
     with:
       environment: uat
     needs: [ deploy-qa ]
 
-  deploy-prod: Deploy PROD
+  deploy-prod: 
+    name: Deploy PROD
     if: github.ref_name == 'main'
     uses: ./.github/workflows/deploy.yml
     with:
