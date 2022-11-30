@@ -3,6 +3,8 @@ name: build
 # run on all pushes for now
 on: 
   push:
+    branches:
+      - main
 
 
 jobs:
@@ -39,6 +41,7 @@ jobs:
           name: dist
           path: dist
   
+  # add rules so this only runs on specific branches
   deploy-beta:
     name: Deploy Beta
     environment: beta
@@ -54,15 +57,28 @@ jobs:
       - name: List files in the repository
         run: ls ${{ github.workspace }}
 
+  # add rules so this only runs on specific branches
   deploy-qa:
     name: Deploy QA
     environment: qa
-    needs: [ build, deploy-beta ]
+    needs: [ deploy-beta ]
     runs-on: ubuntu-latest
     
-
     steps:
       - name: Download Build Outputs
         uses: actions/download-artifact@v3
         with:
           name: dist
+
+  # add rules so this only runs on specific branches
+  deploy-prod:
+    name: Deploy PROD
+    environment: prod
+    needs: [ deploy-qa ]
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Download Build Outputs
+        uses: actions/download-artifact@v3
+        with:
+          name: dist       
