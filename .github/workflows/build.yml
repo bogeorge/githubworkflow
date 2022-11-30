@@ -35,9 +35,10 @@ jobs:
   
   deploybeta:
     name: Deploy to Beta Environment
-    needs: [build]
+    needs: [ build ]
     runs-on: ubuntu-latest
 
+    steps:
     - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
