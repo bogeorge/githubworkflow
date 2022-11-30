@@ -1,11 +1,18 @@
 name: Build
 
-# run on all pushes for now
+# run on all pushes
 on: 
   push:
 
+env:
+  DEPLOYMENT_BRANCH: 'main'
+
 jobs:
 
+#------------------------------------------------------------------------------
+# Build and Test the application on every commit/push so we know righ away
+# about any build, lint, or test errors
+#------------------------------------------------------------------------------
   build:
     name: Build and Test
     runs-on: ubuntu-latest
@@ -45,14 +52,29 @@ jobs:
   # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/deploying-using-github.html
   # add rules so this only runs on specific branches
   deploy-beta:
+    if: github.ref_name == env.DEPLOYMENT_BRANCH
     uses: ./.github/workflows/deploy.yml
     with:
       environment: beta
     needs: [ build ]
 
   deploy-qa:
+    if: github.ref_name == env.DEPLOYMENT_BRANCH
     uses: ./.github/workflows/deploy.yml
     with:
       environment: qa
-    needs: [ build, deploy-beta ]
+    needs: [ deploy-beta ]
 
+  deploy-uat:
+    if: github.ref_name == env.DEPLOYMENT_BRANCH
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: uat
+    needs: [ deploy-qa ]
+
+  deploy-prod:
+    if: github.ref_name == env.DEPLOYMENT_BRANCH
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: prod
+    needs: [ deploy-uat ]

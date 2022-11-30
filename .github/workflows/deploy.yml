@@ -24,7 +24,7 @@ jobs:
       # - name: Setup SAM CLI
       #   uses: aws-actions/setup-sam@v2
 
-      # Potentiall revisit this approach if something with sam build doesn't work out
+      # Potentially revisit this approach if something with sam build doesn't work out
       - name: Download Build Outputs
         uses: actions/download-artifact@v3
         with:
