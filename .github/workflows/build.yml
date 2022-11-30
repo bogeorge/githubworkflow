@@ -47,5 +47,5 @@ jobs:
   deploy-beta:
     name: Deploy Beta
     uses: ./.github/workflows/deploy.yml
-    environment: beta
+    # environment: beta
     needs: [ build ]
