@@ -1,4 +1,4 @@
-name: build
+name: CICD Pipeline
 
 # run on all pushes for now
 on: 
