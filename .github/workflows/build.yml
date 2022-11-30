@@ -3,9 +3,10 @@ name: Build
 # run on all pushes
 on: 
   push:
-  env:
-    # use this to enforce which build outputs are allowed to be deployed based on branch
-    DEPLOYMENT_BRANCH: main 
+
+env:
+  # use this to enforce which build outputs are allowed to be deployed based on branch
+  DEPLOYMENT_BRANCH: main 
 
 jobs:
 
@@ -44,6 +45,8 @@ jobs:
         with:
           name: dist
           path: dist
+
+      - run: echo ${{ env.DEPLOYMENT_BRANCH }}
   
 #------------------------------------------------------------------------------
 #------------------------------------------------------------------------------
@@ -52,7 +55,6 @@ jobs:
   # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/deploying-using-github.html
   # add rules so this only runs on specific branches
   deploy-beta:
-    if: ${{ github.ref_name == env.DEPLOYMENT_BRANCH }}
     uses: ./.github/workflows/deploy.yml
     with:
       environment: beta
