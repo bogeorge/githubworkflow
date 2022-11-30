@@ -12,6 +12,7 @@ jobs:
   deploy: 
     name: Deploy to ${{ inputs.environment }} 
     runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
 
     steps:
       # - name: Clone ${{ github.repository }} repo to the runner
