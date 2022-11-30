@@ -18,7 +18,12 @@ jobs:
       - name: AWS Stuff
         env:
           accesskey: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: echo '${accesskey}'
+          testvar: "aasdfasdfsad"
+        run: |
+          echo '${accesskey}'
+          echo '${testvar}'
+          echo ${testvar}
+          echo '${env.testvar}'
       # - name: Clone ${{ github.repository }} repo to the runner
       #   uses: actions/checkout@v3 #checkout repo to github/workspace
 
