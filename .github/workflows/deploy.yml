@@ -2,6 +2,7 @@ name: 'Deploy Lambda Using SAM CLI'
 
 on:
   workflow_call:
+    inputs:
      environment:
         type: string
         description: environment to deploy to
