@@ -22,29 +22,29 @@ jobs:
       - name: Clone ${{ github.repository }} repo to the runner
         uses: actions/checkout@v3 #checkout repo to github/workspace
 
-      - name: Setup Node
-        uses: actions/setup-node@v3
+      # - name: Setup Node
+      #   uses: actions/setup-node@v3
 
-      - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+      # - name: Install Dependencies
+      #   run: yarn install --frozen-lockfile
 
-      - name: Build Application
-        run: yarn build
+      # - name: Build Application
+      #   run: yarn build
 
-      - name: Lint Application
-        run: yarn lint
+      # - name: Lint Application
+      #   run: yarn lint
 
-      - name: Execute Unit Tests
-        run: yarn test
+      # - name: Execute Unit Tests
+      #   run: yarn test
 
-      # generate our documentation
-      # - run: yarn doc
+      # # generate our documentation
+      # # - run: yarn doc
 
-      - name: Upload Build Outputs
-        uses: actions/upload-artifact@v3
-        with:
-          name: dist
-          path: dist
+      # - name: Upload Build Outputs
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: dist
+      #     path: dist
   
 #------------------------------------------------------------------------------
 #------------------------------------------------------------------------------
@@ -60,26 +60,26 @@ jobs:
       environment: beta
     needs: [ build ]
 
-  deploy-qa: 
-    name: Deploy QA
-    if: github.ref_name == 'main'
-    uses: ./.github/workflows/deploy.yml
-    with:
-      environment: qa
-    needs: [ deploy-beta ]
+  # deploy-qa: 
+  #   name: Deploy QA
+  #   if: github.ref_name == 'main'
+  #   uses: ./.github/workflows/deploy.yml
+  #   with:
+  #     environment: qa
+  #   needs: [ deploy-beta ]
 
-  deploy-uat: 
-    name: Deploy UAT
-    if: github.ref_name == 'main'
-    uses: ./.github/workflows/deploy.yml
-    with:
-      environment: uat
-    needs: [ deploy-qa ]
+  # deploy-uat: 
+  #   name: Deploy UAT
+  #   if: github.ref_name == 'main'
+  #   uses: ./.github/workflows/deploy.yml
+  #   with:
+  #     environment: uat
+  #   needs: [ deploy-qa ]
 
-  deploy-prod: 
-    name: Deploy PROD
-    if: github.ref_name == 'main'
-    uses: ./.github/workflows/deploy.yml
-    with:
-      environment: prod
-    needs: [ deploy-uat ]
+  # deploy-prod: 
+  #   name: Deploy PROD
+  #   if: github.ref_name == 'main'
+  #   uses: ./.github/workflows/deploy.yml
+  #   with:
+  #     environment: prod
+  #   needs: [ deploy-uat ]
