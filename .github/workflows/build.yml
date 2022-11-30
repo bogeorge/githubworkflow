@@ -32,3 +32,12 @@ jobs:
 
       # generate our documentation
       # - run: yarn doc
+  
+  deploy-beta:
+    name: Deploy to Beta Environment
+    needs: [build]
+    runs-on: ubuntu-latest
+
+    - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
