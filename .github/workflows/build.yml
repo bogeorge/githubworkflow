@@ -1,0 +1,47 @@
+name: Build
+
+# run on all pushes for now
+on: 
+  push:
+
+jobs:
+
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone ${{ github.repository }} repo to the runner
+        uses: actions/checkout@v3 #checkout repo to github/workspace
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build Application
+        run: yarn build
+
+      - name: Lint Application
+        run: yarn lint
+
+      - name: Execute Unit Tests
+        run: yarn test
+
+      # generate our documentation
+      # - run: yarn doc
+
+      - name: Upload Build Outputs
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: dist
+  
+  # add rules so this only runs on specific branches
+  deploy-beta:
+    name: Deploy Beta
+    uses: deploy.yml
+    with:
+      deployment-env: beta
+    needs: [ build ]
