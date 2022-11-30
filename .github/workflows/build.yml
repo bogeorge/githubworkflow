@@ -33,7 +33,7 @@ jobs:
       # generate our documentation
       # - run: yarn doc
   
-  deploy-beta:
+  deploybeta:
     name: Deploy to Beta Environment
     needs: [build]
     runs-on: ubuntu-latest
