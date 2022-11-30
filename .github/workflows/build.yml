@@ -45,8 +45,14 @@ jobs:
   # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/deploying-using-github.html
   # add rules so this only runs on specific branches
   deploy-beta:
-    name: Deploy Beta
     uses: ./.github/workflows/deploy.yml
     with:
       environment: beta
     needs: [ build ]
+
+  deploy-qa:
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: qa
+    needs: [ build, deploy-beta ]
+
