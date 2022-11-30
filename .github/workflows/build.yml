@@ -38,6 +38,7 @@ jobs:
           name: dist
           path: dist
   
+  # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/deploying-using-github.html
   # add rules so this only runs on specific branches
   deploy-beta:
     name: Deploy Beta

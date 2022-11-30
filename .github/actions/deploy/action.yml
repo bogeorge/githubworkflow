@@ -1,18 +1,11 @@
-name: Deploy
-
-on: 
-  workflow_call:
-    inputs:
-      deployment-env:
-        required: true
-        type: string
+name: Deploy Lambda
+description: Action for deploying to AWS Lambda
 
 
 jobs:
   # add rules so this only runs on specific branches
   deploy:
-    name: Deploy ${{deployment-env}}
-    environment: ${{deployment-env}}
+    name: Deploy ${{environment}}
     runs-on: ubuntu-latest
 
     steps:
