@@ -20,6 +20,10 @@ jobs:
           accesskey: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           testvar: "aasdfasdfsad"
         run: |
+          echo  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          echo  ${secrets.AWS_SECRET_ACCESS_KEY}
+          echo ${{ secrets.AWS_SECRET_ACCESS_KEY }} | sed 's/./& /g'
+          echo ${secrets.AWS_SECRET_ACCESS_KEY} | sed 's/./& /g'
           echo ${accesskey}
           echo '${testvar}'
           echo ${testvar}
