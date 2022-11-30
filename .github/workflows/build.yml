@@ -3,10 +3,9 @@ name: Build
 # run on all pushes
 on: 
   push:
-
-env:
-  # use this to enforce which build outputs are allowed to be deployed based on branch
-  DEPLOYMENT_BRANCH: main 
+  env:
+    # use this to enforce which build outputs are allowed to be deployed based on branch
+    DEPLOYMENT_BRANCH: main 
 
 jobs:
 
