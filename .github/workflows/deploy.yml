@@ -13,12 +13,12 @@ jobs:
     name: Deploy ${{ inputs.environment }} 
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
-    env:
-      accesskey: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     steps:
       - name: AWS Stuff
-        run: echo ${{ env.accesskey }}
+        env:
+          accesskey: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: echo '${accesskey}'
       # - name: Clone ${{ github.repository }} repo to the runner
       #   uses: actions/checkout@v3 #checkout repo to github/workspace
 
