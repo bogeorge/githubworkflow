@@ -53,7 +53,7 @@ jobs:
   # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/deploying-using-github.html
   # add rules so this only runs on specific branches
   deploy-beta:
-    if: github.ref_name == $DEPLOYMENT_BRANCH
+    if: github.ref_name == 'main'
     uses: ./.github/workflows/deploy.yml
     with:
       environment: beta
