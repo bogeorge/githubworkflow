@@ -41,7 +41,7 @@ jobs:
   # add rules so this only runs on specific branches
   deploy-beta:
     name: Deploy Beta
-    uses: deploy.yml
+    uses: deploy.yml@main
     with:
       deployment-env: beta
     needs: [ build ]
