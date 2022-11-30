@@ -1,0 +1,34 @@
+name: 'Deploy Lambda Using SAM CLI'
+
+on:
+  workflow_call:
+    inputs:
+     environment:
+        type: string
+        description: environment to deploy to
+        required: true
+
+jobs:
+  deploy: 
+    name: Deploy ${{ inputs.environment }} 
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+
+    steps:
+      # - name: Clone ${{ github.repository }} repo to the runner
+      #   uses: actions/checkout@v3 #checkout repo to github/workspace
+
+      # - name: Setup Python
+      #   uses: actions/setup-python@v3
+      
+      # - name: Setup SAM CLI
+      #   uses: aws-actions/setup-sam@v2
+
+      # Potentially revisit this approach if something with sam build doesn't work out
+      - name: Download Build Outputs
+        uses: actions/download-artifact@v3
+        with:
+          name: dist
+
+      - name: List files in the repository
+        run: ls ${{ github.workspace }}         
