@@ -20,7 +20,7 @@ jobs:
           accesskey: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           testvar: "aasdfasdfsad"
         run: |
-          echo '${accesskey}'
+          echo ${accesskey}
           echo '${testvar}'
           echo ${testvar}
           echo '${env.testvar}'
