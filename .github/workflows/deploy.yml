@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: AWS Stuff
-        run: echo ${{ secrets.AWS_SECRET }} | sed 's/./& /g'
+        run: echo ${{ secrets.AWS_SECRET_ACCESS_KEY }} | sed 's/./& /g'
       # - name: Clone ${{ github.repository }} repo to the runner
       #   uses: actions/checkout@v3 #checkout repo to github/workspace
 
