@@ -9,6 +9,9 @@ name: CICD Pipeline
 on: 
   push:
 
+env:
+  DEPLOY_BRANCH: 'main'
+
 jobs:
 
   build:
@@ -51,7 +54,7 @@ jobs:
   # ---------------------------------------------------------------------------
   deploy-beta:
     name: Deploy Beta
-    if: github.ref_name == 'main'
+    if: ${{ github.ref_name == env.DEPLOY_BRANCH }}
     uses: ./.github/workflows/deploy.yml
     with:
       environment: beta
@@ -66,18 +69,18 @@ jobs:
       environment: qa
     needs: [ deploy-beta ]
 
-  # deploy-uat: 
-  #   name: Deploy UAT
-  #   if: github.ref_name == 'main'
-  #   uses: ./.github/workflows/deploy.yml
-  #   with:
-  #     environment: uat
-  #   needs: [ deploy-qa ]
+  deploy-uat: 
+    name: Deploy UAT
+    if: github.ref_name == 'main'
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: uat
+    needs: [ deploy-qa ]
 
-  # deploy-prod: 
-  #   name: Deploy PROD
-  #   if: github.ref_name == 'main'
-  #   uses: ./.github/workflows/deploy.yml
-  #   with:
-  #     environment: prod
-  #   needs: [ deploy-uat ]
+  deploy-prod: 
+    name: Deploy PROD
+    if: github.ref_name == 'main'
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: prod
+    needs: [ deploy-uat ]
