@@ -1,0 +1,43 @@
+#----------------------------------------------------------------------------------------------------------------------
+# This workflow will build and test the application and should be called on EVERY commit
+#----------------------------------------------------------------------------------------------------------------------
+name: Build and Test
+
+on:
+  workflow_call:
+
+jobs:
+
+
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Clone ${{ github.repository }} repo to the runner
+        uses: actions/checkout@v3 #checkout repo to github/workspace
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build Application
+        run: yarn build
+
+      - name: Lint Application
+        run: yarn lint
+
+      - name: Execute Unit Tests
+        run: yarn test
+
+      # # generate our documentation
+      # # - run: yarn doc
+
+      - name: Upload Build Outputs
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: dist

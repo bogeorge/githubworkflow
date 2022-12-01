@@ -4,7 +4,7 @@
 # It is based on information from the below link
 # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/deploying-using-github.html
 #----------------------------------------------------------------------------------------------------------------------
-name: 'Deploy Lambda Using SAM CLI'
+name: Deploy Lambda
 
 on:
   workflow_call:

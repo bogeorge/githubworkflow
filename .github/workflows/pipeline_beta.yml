@@ -1,0 +1,22 @@
+#----------------------------------------------------------------------------------------------------------------------
+# This workflow should only execute when code is committed to alpha which means it needs to be tested before going to
+# the beta (integrated development environment)
+#----------------------------------------------------------------------------------------------------------------------
+name: Beta Pipeline
+
+on: 
+  push:
+    branches:
+      - 'beta'
+
+jobs:
+
+  build:
+     uses: ./.github/workflows/build.yml
+
+  deploy: 
+    name: Deploy Beta
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: beta
+    needs: [ build ]
