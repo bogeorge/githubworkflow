@@ -1,0 +1,29 @@
+#----------------------------------------------------------------------------------------------------------------------
+# This workflow should only execute when code is committed to main which means it has passed QA testing and should
+# be ready to go to UAT and Production
+#----------------------------------------------------------------------------------------------------------------------
+name: Main Pipeline
+
+on: 
+  push:
+    branches:
+      - 'main'
+
+jobs:
+
+  build-test:
+     uses: ./.github/workflows/buildandtest.yml
+
+  deploy-uat: 
+    name: Deploy UAT
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: uat
+    needs: [ build ]
+
+  deploy-prod: 
+    name: Deploy PROD
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: prod
+    needs: [ deploy-uat ]
