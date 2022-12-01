@@ -17,10 +17,8 @@ jobs:
   build:
     name: Build and Test
     runs-on: ubuntu-latest
-    #environment: beta
 
     steps:
-      #- run: echo ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Clone ${{ github.repository }} repo to the runner
         uses: actions/checkout@v3 #checkout repo to github/workspace
@@ -60,6 +58,7 @@ jobs:
     uses: ./.github/workflows/deploy.yml
     with:
       environment: beta
+    secrets: inherit
     needs: [ build ]
 
   # deploy-qa: 
