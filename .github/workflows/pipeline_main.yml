@@ -12,7 +12,7 @@ on:
 jobs:
 
   build:
-     uses: ./.github/workflows/buildandtest.yml
+     uses: ./.github/workflows/build.yml
 
   deploy-uat: 
     name: Deploy UAT
