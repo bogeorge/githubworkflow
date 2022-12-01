@@ -1,19 +1,16 @@
-name: Build
+#----------------------------------------------------------------------------------------------------------------------
+# This workflow is the default workflow that should run on every checkin, regardless of branch so we know right away
+# about any build, lint or test errors.  It will then conditionally run deployments based on the branch, tag or 
+# release.
+#----------------------------------------------------------------------------------------------------------------------
+name: CICD Pipeline
 
 # run on all pushes
 on: 
   push:
 
-env:
-  # use this to enforce which build outputs are allowed to be deployed based on branch
-  DEPLOYMENT_BRANCH: main 
-
 jobs:
 
-#------------------------------------------------------------------------------
-# Build and Test the application on every commit/push so we know righ away
-# about any build, lint, or test errors
-#------------------------------------------------------------------------------
   build:
     name: Build and Test
     runs-on: ubuntu-latest
@@ -46,12 +43,12 @@ jobs:
         with:
           name: dist
           path: dist
-  
-#------------------------------------------------------------------------------
-#------------------------------------------------------------------------------
 
-  # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/deploying-using-github.html
-  # add rules so this only runs on specific branches
+  # ---------------------------------------------------------------------------
+  # Deployment jobs that should be as minimal as possible and let deploy.yml
+  # do all the work.  This should define rules as to when to execute and
+  # what environment to use when they do.
+  # ---------------------------------------------------------------------------
   deploy-beta:
     name: Deploy Beta
     if: github.ref_name == 'main'
@@ -61,13 +58,13 @@ jobs:
     secrets: inherit
     needs: [ build ]
 
-  # deploy-qa: 
-  #   name: Deploy QA
-  #   if: github.ref_name == 'main'
-  #   uses: ./.github/workflows/deploy.yml
-  #   with:
-  #     environment: qa
-  #   needs: [ deploy-beta ]
+  deploy-qa: 
+    name: Deploy QA
+    if: github.ref_name == 'main'
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: qa
+    needs: [ deploy-beta ]
 
   # deploy-uat: 
   #   name: Deploy UAT
