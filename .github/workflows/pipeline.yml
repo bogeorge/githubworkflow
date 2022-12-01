@@ -9,14 +9,10 @@ name: CICD Pipeline
 on: 
   push:
 
-jobs:
+env:
+  DEPLOY_BRANCH: 'main'
 
-  # using env: doesn't work if we want to use it within if condition for a job, so here we are
-  env-setup:
-    name: Setup Environment Variables
-    runs-on: ubuntu-latest
-    outputs:
-      DEPLOY_BRANCH: 'main'
+jobs:
 
   build:
     name: Build and Test
@@ -59,12 +55,16 @@ jobs:
   # ---------------------------------------------------------------------------
   deploy-beta:
     name: Deploy Beta
-    if: ${{ needs.env-setup.outputs.DEPLOY_BRANCH == github.ref_name }}
-    uses: ./.github/workflows/deploy.yml
-    with:
-      environment: beta
-    secrets: inherit
     needs: [ build ]
+    
+    steps:
+
+      - if: ${{ needs.env-setup.outputs.DEPLOY_BRANCH == github.ref_name }}
+        uses: ./.github/workflows/deploy.yml
+        with:
+          environment: beta
+        secrets: inherit
+
 
   deploy-qa: 
     name: Deploy QA
