@@ -13,7 +13,7 @@ jobs:
 
   # using env: doesn't work if we want to use it within if condition for a job, so here we are
   env-setup:
-    name: Setup Environment Variables
+    name: Environment Setup
     runs-on: ubuntu-latest
     outputs:
       DEPLOY_BRANCH: 'main'
