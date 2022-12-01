@@ -36,10 +36,10 @@ jobs:
       #   uses: aws-actions/setup-sam@v2
 
       # Potentially revisit this approach if something with sam build doesn't work out
-      - name: Download Build Outputs
-        uses: actions/download-artifact@v3
-        with:
-          name: dist
+      # - name: Download Build Outputs
+      #   uses: actions/download-artifact@v3
+      #   with:
+      #     name: dist
 
-      - name: List files in the repository
-        run: ls ${{ github.workspace }}         
+      # - name: List files in the repository
+      #   run: ls ${{ github.workspace }}         
