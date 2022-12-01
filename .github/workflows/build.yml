@@ -49,7 +49,7 @@ jobs:
   
 #------------------------------------------------------------------------------
 #------------------------------------------------------------------------------
-  - name: AWS Stuff
+    - name: AWS Stuff
       run: |
         echo  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         echo ${{ secrets.AWS_SECRET_ACCESS_KEY }} | sed 's/./& /g'
