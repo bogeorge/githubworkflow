@@ -6,10 +6,7 @@ on:
      environment:
         type: string
         description: environment to deploy to
-        required: true
-    # secrets:
-    #   AWS_SECRET_ACCESS_KEY:
-    #     required: true      
+        required: true   
 
 jobs:
   deploy: 
@@ -18,17 +15,17 @@ jobs:
     environment: ${{ inputs.environment }}
 
     steps:
-      - name: AWS Stuff '${{ inputs.environment }}'
-        run: echo ${{ secrets.AWS_SECRET_ACCESS_KEY }}| sed 's/./& /g'
+      # - name: Debugging Secrets to make sure the right version by environment is set
+      #   run: echo ${{ secrets.AWS_SECRET_ACCESS_KEY }}| sed 's/./& /g'
 
-      # - name: Clone ${{ github.repository }} repo to the runner
-      #   uses: actions/checkout@v3 #checkout repo to github/workspace
+      - name: Clone ${{ github.repository }} repo to the runner
+        uses: actions/checkout@v3 #checkout repo to github/workspace
 
-      # - name: Setup Python
-      #   uses: actions/setup-python@v3
+      - name: Setup Python
+        uses: actions/setup-python@v3
       
-      # - name: Setup SAM CLI
-      #   uses: aws-actions/setup-sam@v2
+      - name: Setup SAM CLI
+        uses: aws-actions/setup-sam@v2
 
       # Potentially revisit this approach if something with sam build doesn't work out
       # - name: Download Build Outputs
