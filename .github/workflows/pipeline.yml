@@ -54,7 +54,7 @@ jobs:
   # ---------------------------------------------------------------------------
   deploy-beta:
     name: Deploy Beta
-    if: ${{ github.ref_name == $DEPLOY_BRANCH }}
+    if: ${{ github.ref_name == "$DEPLOY_BRANCH" }}
     uses: ./.github/workflows/deploy.yml
     with:
       environment: beta
