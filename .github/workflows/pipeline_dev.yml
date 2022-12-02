@@ -7,11 +7,19 @@ on:
   push:
     branches-ignore:
       - 'main'
-      - 'alpha'
       - 'beta'
-      - 'qa'
 
 jobs:
 
   build:
-     uses: ./.github/workflows/build.yml      
+     uses: ./.github/workflows/build.yml
+
+  test:
+    run: echo ${{ github.event.head_commit.message }}
+
+  deploy: 
+    name: Deploy Alpha
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: alpha
+    needs: [ build ]

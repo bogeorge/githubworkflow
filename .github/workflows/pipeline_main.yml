@@ -15,11 +15,18 @@ jobs:
      uses: ./.github/workflows/build.yml
 
   deploy-uat: 
+    name: Deploy QA
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: qa
+    needs: [ build ]
+
+  deploy-uat: 
     name: Deploy UAT
     uses: ./.github/workflows/deploy.yml
     with:
       environment: uat
-    needs: [ build ]
+    needs: [ deploy-uat ]
 
   deploy-prod: 
     name: Deploy PROD
