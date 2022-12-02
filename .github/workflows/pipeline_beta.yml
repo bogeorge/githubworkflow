@@ -1,6 +1,6 @@
 #----------------------------------------------------------------------------------------------------------------------
-# This workflow should only execute when code is committed to alpha which means it needs to be tested before going to
-# the beta (integrated development environment)
+# This workflow should only execute when code is committed to beta which means it needs to be tested before going to
+# the beta (integrated development environment) AND the alpha environment
 #----------------------------------------------------------------------------------------------------------------------
 name: Beta Pipeline
 
@@ -14,9 +14,14 @@ jobs:
   build:
      uses: ./.github/workflows/build.yml
 
-  deploy: 
-    name: Deploy Beta
+  deploy-beta: 
     uses: ./.github/workflows/deploy.yml
     with:
       environment: beta
     needs: [ build ]
+
+  deploy-alpha:
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: alpha
+    needs: [ build ]    
