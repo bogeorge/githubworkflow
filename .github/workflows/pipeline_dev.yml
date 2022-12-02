@@ -13,11 +13,11 @@ on:
 jobs:
 
   build:
-     uses: bogeorge/github_workflows/.github/workflows/build.yml
+     uses: bogeorge/github_workflows/.github/workflows/build.yml@main
 
   deploy-alpha:
     if: ${{ startsWith(github.event.head_commit.message, '#alpha') }}
-    uses: bogeorge/github_workflows/.github/workflows/deploy.yml
+    uses: bogeorge/github_workflows/.github/workflows/deploy.yml@main
     with:
       environment: alpha
     needs: [ build ]
