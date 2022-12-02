@@ -1,6 +1,6 @@
 #----------------------------------------------------------------------------------------------------------------------
 # This workflow will execute to build and test the application on commits to development branches
-# It can optionally deploy to the alpha environment by prefixing your commit comment with #alpha
+# It can optionally deploy to the alpha environment by prefixing your last commit comment with #alpha
 #----------------------------------------------------------------------------------------------------------------------
 name: Development Pipeline
 
@@ -15,14 +15,8 @@ jobs:
   build:
      uses: ./.github/workflows/build.yml
 
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo ${{ github.event.head_commit.message }}
-
-  deploy:
+  deploy-alpha:
     if: ${{ startsWith(github.event.head_commit.message, '#alpha') }}
-    name: Deploy Alpha
     uses: ./.github/workflows/deploy.yml
     with:
       environment: alpha
