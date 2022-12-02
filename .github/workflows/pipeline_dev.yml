@@ -19,7 +19,8 @@ jobs:
     steps:
       - run: echo ${{ github.event.head_commit.message }}
 
-  deploy: 
+  deploy:
+    if: ${{ startsWith(github.event.head_commit.message, '#alpha') }}
     name: Deploy Alpha
     uses: ./.github/workflows/deploy.yml
     with:
