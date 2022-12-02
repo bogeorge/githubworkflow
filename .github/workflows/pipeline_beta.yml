@@ -1,6 +1,6 @@
 #----------------------------------------------------------------------------------------------------------------------
-# This workflow should only execute when code is committed to alpha which means it needs to be tested before going to
-# the beta (integrated development environment)
+# This workflow should only execute when code is committed to beta which means it needs to be tested before going to
+# the beta (integrated development environment) AND the alpha environment
 #----------------------------------------------------------------------------------------------------------------------
 name: Beta Pipeline
 
