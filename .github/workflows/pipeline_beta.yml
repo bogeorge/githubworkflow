@@ -14,9 +14,16 @@ jobs:
   build:
      uses: ./.github/workflows/build.yml
 
-  deploy: 
+  deploy-beta: 
     name: Deploy Beta
     uses: ./.github/workflows/deploy.yml
     with:
       environment: beta
     needs: [ build ]
+
+  deploy-alpha:
+    name: Deploy Alpha
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: alpha
+    needs: [ build ]    
