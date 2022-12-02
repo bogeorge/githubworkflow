@@ -14,7 +14,7 @@ jobs:
   build:
      uses: ./.github/workflows/build.yml
 
-  deploy-uat: 
+  deploy-qa: 
     name: Deploy QA
     uses: ./.github/workflows/deploy.yml
     with:
