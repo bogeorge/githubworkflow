@@ -1,5 +1,6 @@
 #----------------------------------------------------------------------------------------------------------------------
 # This workflow will execute to build and test the application on commits to development branches
+# It can optionally deploy to the alpha environment by prefixing your commit comment with #alpha
 #----------------------------------------------------------------------------------------------------------------------
 name: Development Pipeline
 
