@@ -16,11 +16,12 @@ on:
 
 jobs:
   deploy: 
-    name: Deploy ${{ inputs.environment }} 
+    # name: Deploy ${{ inputs.environment }} 
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
 
     steps:
+      - run: echo Delpoying to ${{ inputs.environment }} environment
       # - name: Debugging Secrets to make sure the right version by environment is set
       #   run: echo ${{ secrets.AWS_SECRET_ACCESS_KEY }}| sed 's/./& /g'
 
