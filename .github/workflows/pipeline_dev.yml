@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo AWS_STACK_NAME $AWS_STACK_NAME
-      - run: echo AWS_STACK_NAME ${{ env.$AWS_STACK_NAME }}
+      - run: echo AWS_STACK_NAME ${{ env.AWS_STACK_NAME }}
 
   build:
      #uses: bogeorge/github_workflows/.github/workflows/build_yarn.yml@v2.0
