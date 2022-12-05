@@ -49,6 +49,7 @@ jobs:
     uses: ./.github/workflows/extract_config.yml
   
   env-setup:
+    runs-on: ubuntu-latest
     outputs:
       AWS_STACK_NAME: ${{ fromJSON(needs.extract-config.outputs.result).AWS_STACK_NAME }}  
     needs: [ extract-config ]
