@@ -18,16 +18,19 @@ jobs:
     uses: ./.github/workflows/deploy_lambda.yml
     with:
       environment: qa
+      region: us-east-2
     needs: [ build ]
 
   deploy-uat: 
     uses: ./.github/workflows/deploy_lambda.yml
     with:
       environment: uat
+      region: us-east-2
     needs: [ deploy-qa ]
 
   deploy-prod: 
     uses: ./.github/workflows/deploy_lambda.yml
     with:
       environment: prod
+      region: us-east-2
     needs: [ deploy-uat ]

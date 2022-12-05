@@ -12,7 +12,11 @@ on:
      environment:
         type: string
         description: environment to deploy to
-        required: true   
+        required: true
+      region:
+        type: string
+        description:  region to deploy to
+        required: true
 
 jobs:
   deploy: 
@@ -21,7 +25,7 @@ jobs:
     environment: ${{ inputs.environment }}
 
     steps:
-      - run: echo Delpoying to ${{ inputs.environment }} environment
+      - run: echo Delpoying to ${{ inputs.environment }} environment in the ${{ inputs.region }} region
       # - name: Debugging Secrets to make sure the right version by environment is set
       #   run: echo ${{ secrets.AWS_SECRET_ACCESS_KEY }}| sed 's/./& /g'
 
@@ -33,6 +37,12 @@ jobs:
       
       - name: Setup SAM CLI
         uses: aws-actions/setup-sam@v2
+
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ inputs.region }}    
 
       # Potentially revisit this approach if something with sam build doesn't work out
       # - name: Download Build Outputs
