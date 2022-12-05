@@ -38,7 +38,7 @@ jobs:
               readFileSync(
                 resolve(
                   env.GITHUB_WORKSPACE,
-                  '${{inputs.config-file}}'
+                  inputs.config-file-path
                 ),
                 'utf8'
               )
