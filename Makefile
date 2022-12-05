@@ -1,11 +1,15 @@
+# Below is example from this article
+# https://www.adambarker.com/aws-serverless-application-model-lambda-and-nestjs/
 .PHONY: build-RuntimeDependenciesLayer build-lambda-common
 .PHONY: build-MainFunction
 
 build-MainFunction:
 	$(MAKE) HANDLER=src/lambda.ts build-lambda-common
 
+#TODO revisit the approach to making nest cli available...maybe we use a docker image
 build-lambda-common:
 	npm install
+	npm install -g @nestjs/cli 
 	rm -rf dist
 	nest build
 	cp -r dist "$(ARTIFACTS_DIR)/"
