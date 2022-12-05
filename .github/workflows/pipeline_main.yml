@@ -19,6 +19,7 @@ jobs:
     with:
       environment: qa
       region: us-east-2
+    secrets: inherit # pass all secrets
     needs: [ build ]
 
   deploy-uat: 
@@ -26,6 +27,7 @@ jobs:
     with:
       environment: uat
       region: us-east-2
+    secrets: inherit # pass all secrets
     needs: [ deploy-qa ]
 
   deploy-prod: 
@@ -33,4 +35,5 @@ jobs:
     with:
       environment: prod
       region: us-east-2
+    secrets: inherit # pass all secrets
     needs: [ deploy-uat ]
