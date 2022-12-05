@@ -22,7 +22,7 @@ jobs:
 
     steps:
 
-     - name: Clone ${{ github.repository }} repo to the runner
+      - name: Clone ${{ github.repository }} repo to the runner
         uses: actions/checkout@v3 #checkout repo to github/workspace      
 
       - name:  Export Config to Outputs
