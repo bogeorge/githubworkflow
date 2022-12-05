@@ -72,4 +72,4 @@ jobs:
       #aws-stack-name: ${{needs.env-setup.outputs.AWS_STACK_NAME}}
       aws-stack-name: 'sample-application-alpha'
     secrets: inherit # pass all secrets
-    needs: [ env-setup, build ]
+    needs: [ build ]
