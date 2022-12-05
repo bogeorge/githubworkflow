@@ -45,18 +45,18 @@ jobs:
   #           console.log('config', config)
 
   #           return config
-  extract-config:
-    uses: ./.github/workflows/extract_config.yml
-    with: 
-      config-file-path: '.github/workflows/config.json'
+  # extract-config:
+  #   uses: ./.github/workflows/extract_config.yml
+  #   with: 
+  #     config-file-path: '.github/workflows/config.json'
   
-  env-setup:
-    runs-on: ubuntu-latest
-    outputs:
-      AWS_STACK_NAME: ${{ fromJSON(needs.extract-config.JSON).AWS_STACK_NAME }}  
-    needs: [ extract-config ]
-    steps:
-      - run: echo $ {{ needs.extract-config.outputs.JSON }}
+  # env-setup:
+  #   runs-on: ubuntu-latest
+  #   outputs:
+  #     AWS_STACK_NAME: ${{ fromJSON(needs.extract-config.JSON).AWS_STACK_NAME }}  
+  #   needs: [ extract-config ]
+  #   steps:
+  #     - run: echo $ {{ needs.extract-config.outputs.JSON }}
 
   build:
      #uses: bogeorge/github_workflows/.github/workflows/build_yarn.yml@v2.0
@@ -69,6 +69,7 @@ jobs:
     with:
       app-environment: alpha
       aws-region: us-east-2
-      aws-stack-name: ${{needs.env-setup.outputs.AWS_STACK_NAME}}
+      #aws-stack-name: ${{needs.env-setup.outputs.AWS_STACK_NAME}}
+      aws-stack-name: 'sample-application-alpha'
     secrets: inherit # pass all secrets
     needs: [ env-setup, build ]
