@@ -28,6 +28,6 @@ jobs:
     with:
       app-environment: alpha
       aws-region: us-east-2
-      aws-stack-name: ${{ env.AWS_STACK_NAME }}
+      aws-stack-name: $AWS_STACK_NAME
     secrets: inherit # pass all secrets
     needs: [ build ]
