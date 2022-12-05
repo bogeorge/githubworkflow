@@ -15,19 +15,19 @@ jobs:
      uses: ./.github/workflows/build_yarn.yml
 
   deploy-qa: 
-    uses: ./.github/workflows/deploy_lamda.yml
+    uses: ./.github/workflows/deploy_lambda.yml
     with:
       environment: qa
     needs: [ build ]
 
   deploy-uat: 
-    uses: ./.github/workflows/deploy_lamda.yml
+    uses: ./.github/workflows/deploy_lambda.yml
     with:
       environment: uat
     needs: [ deploy-qa ]
 
   deploy-prod: 
-    uses: ./.github/workflows/deploy_lamda.yml
+    uses: ./.github/workflows/deploy_lambda.yml
     with:
       environment: prod
     needs: [ deploy-uat ]
