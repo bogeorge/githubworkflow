@@ -18,11 +18,32 @@ jobs:
   env-setup:
     runs-on: ubuntu-latest
     outputs:
-      AWS_STACK_NAME: ${{ steps.init.outputs.AWS_STACK_NAME }}
+      AWS_STACK_NAME: ${{ fromJSON(steps.env-export.outputs.result).AWS_STACK_NAME }}
     steps:
-      - name: init
-        run: |
-          echo "$AWS_STACK_NAME" >> $GITHUB_OUTPUT
+      - name: Clone ${{ github.repository }} repo to the runner
+
+      - name:  Export Config to Outputs
+        id: env-export
+        uses: actions/github-script@v6
+        with: 
+          script: |
+            const { readFileSync } = require('node:fs')
+            const { resolve } = require('node:path')
+            const { env } = require('node:process')
+            const { parse } = JSON
+            const config = parse(
+              readFileSync(
+                resolve(
+                  env.GITHUB_WORKSPACE,
+                  '.github/workflows/config.json'
+                ),
+                'utf8'
+              )
+            )
+
+            console.log('config', config)
+
+            return config
 
   build:
      #uses: bogeorge/github_workflows/.github/workflows/build_yarn.yml@v2.0
