@@ -51,10 +51,10 @@ jobs:
       - name: Build App Using SAM CLI
         run: sam build
 
-      # - name: Deploy Using SAM CLI
-      #   run: sam deploy \
-      #     --region ${{ inputs.aws-region }} \
-      #     --stack-name ${{ inputs.aws-stack-name }} \
-      #     --capabilities CAPABILITY_IAM \
-      #     --no-confirm-changeset \
-      #     --no-fail-on-empty-changeset 
+      - name: Deploy Using SAM CLI
+        run: sam deploy \
+          --region ${{ inputs.aws-region }} \
+          --stack-name "${{ inputs.aws-stack-name }}-${{ inputs.environment }}" \
+          --capabilities CAPABILITY_IAM \
+          --no-confirm-changeset \
+          --no-fail-on-empty-changeset 
