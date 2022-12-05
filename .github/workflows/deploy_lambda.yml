@@ -24,9 +24,9 @@ on:
 
 jobs:
   deploy: 
-    # name: Deploy ${{ inputs.environment }} 
+    # name: Deploy ${{ inputs.app-environment }} 
     runs-on: ubuntu-latest
-    environment: ${{ inputs.environment }}
+    environment: ${{ inputs.app-environment }}
 
     steps:
       # - name: Debugging Secrets to make sure the right version by environment is set
