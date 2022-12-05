@@ -13,12 +13,14 @@ on:
     outputs:
       config:
         description: JSON from provided config file
-        value: ${{ jobs.config.export.outputs.result }}
+        value: ${{ jobs.config.outputs.JSON }}
 
 jobs:
 
   config:
     runs-on: ubuntu-latest
+    outputs:
+      JSON: ${{ steps.export.outputs.result }}
 
     steps:
 

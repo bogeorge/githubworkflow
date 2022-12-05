@@ -53,10 +53,10 @@ jobs:
   env-setup:
     runs-on: ubuntu-latest
     outputs:
-      AWS_STACK_NAME: ${{ fromJSON(needs.extract-config.outputs.result).AWS_STACK_NAME }}  
+      AWS_STACK_NAME: ${{ fromJSON(needs.extract-config.JSON).AWS_STACK_NAME }}  
     needs: [ extract-config ]
     steps:
-      - run: echo $ {{ needs.extract-config.outputs.result }}
+      - run: echo $ {{ needs.extract-config.outputs.JSON }}
 
   build:
      #uses: bogeorge/github_workflows/.github/workflows/build_yarn.yml@v2.0
