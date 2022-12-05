@@ -22,7 +22,7 @@ jobs:
     steps:
       - name: init
         run: |
-          echo AWS_STACK_NAME >> $GITHUB_OUTPUT
+          echo $AWS_STACK_NAME >> $GITHUB_OUTPUT
 
   build:
      #uses: bogeorge/github_workflows/.github/workflows/build_yarn.yml@v2.0
