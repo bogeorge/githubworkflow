@@ -54,8 +54,10 @@ jobs:
       - name: Deploy Using SAM CLI
         run: sam deploy \
           --region ${{ inputs.aws-region }} \
-          #--stack-name ${{ inputs.aws-stack-name }}-${{ inputs.environment }} \
           --stack-name sample-aplication-alpha
           --capabilities CAPABILITY_IAM \
           --no-confirm-changeset \
           --no-fail-on-empty-changeset 
+
+
+          #--stack-name ${{ inputs.aws-stack-name }}-${{ inputs.environment }} \          
