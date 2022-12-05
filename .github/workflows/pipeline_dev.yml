@@ -4,16 +4,21 @@
 #----------------------------------------------------------------------------------------------------------------------
 name: Development Pipeline
 
-env:
-  AWS_STACK_NAME: sample-application
-
 on: 
   push:
     branches-ignore:
       - 'main'
       - 'beta'
 
+env:
+  AWS_STACK_NAME: sample-application
+
 jobs:
+
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo AWS_STACK_NAME $AWS_STACK_NAME
 
   build:
      #uses: bogeorge/github_workflows/.github/workflows/build_yarn.yml@v2.0
@@ -26,6 +31,6 @@ jobs:
     with:
       app-environment: alpha
       aws-region: us-east-2
-      aws-stack-name: "$AWS_STACK_NAME"
+      aws-stack-name: 'asdf'
     secrets: inherit # pass all secrets
     needs: [ build ]
