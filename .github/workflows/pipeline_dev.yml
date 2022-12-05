@@ -4,14 +4,14 @@
 #----------------------------------------------------------------------------------------------------------------------
 name: Development Pipeline
 
+env:
+  AWS_STACK_NAME: sample-application
+  
 on: 
   push:
     branches-ignore:
       - 'main'
       - 'beta'
-
-env:
-  AWS_STACK_NAME: sample-application
 
 jobs:
 
