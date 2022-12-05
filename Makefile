@@ -1,5 +1,5 @@
 .PHONY: build-RuntimeDependenciesLayer build-lambda-common
-.PHONY: build-ExampleFunction
+.PHONY: build-MainFunction
 
 build-MainFunction:
 	$(MAKE) HANDLER=src/lambda.ts build-lambda-common
