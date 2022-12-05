@@ -32,6 +32,6 @@ jobs:
     with:
       app-environment: alpha
       aws-region: us-east-2
-      aws-stack-name: 'asdf'
+      aws-stack-name: echo ${{ env.AWS_STACK_NAME }}
     secrets: inherit # pass all secrets
     needs: [ build ]
