@@ -9,6 +9,9 @@ on:
     branches:
       - 'main'
 
+env:
+  aws-stack-name: sample-application
+
 jobs:
 
   build:
@@ -17,23 +20,26 @@ jobs:
   deploy-qa: 
     uses: ./.github/workflows/deploy_lambda.yml
     with:
-      environment: qa
-      region: us-east-2
+      appenvironment: qa
+      aws-region: us-east-2
+      aws-stack-name: "${{ env.Aaws-stack-name }}-qa"
     secrets: inherit # pass all secrets
     needs: [ build ]
 
   deploy-uat: 
     uses: ./.github/workflows/deploy_lambda.yml
     with:
-      environment: uat
-      region: us-east-2
+      app-environment: uat
+      aws-region: us-east-2
+      aws-stack-name: "${{ env.Aaws-stack-name }}-uat"
     secrets: inherit # pass all secrets
     needs: [ deploy-qa ]
 
   deploy-prod: 
     uses: ./.github/workflows/deploy_lambda.yml
     with:
-      environment: prod
-      region: us-east-2
+      app-environment: prod
+      aws-region: us-east-2
+      aws-stack-name: "${{ env.Aaws-stack-name }}-prod"
     secrets: inherit # pass all secrets
     needs: [ deploy-uat ]

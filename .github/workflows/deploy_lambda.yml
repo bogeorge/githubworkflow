@@ -9,13 +9,17 @@ name: Deploy Lambda
 on:
   workflow_call:
     inputs:
-      environment:
+      app-environment:
         type: string
-        description: environment to deploy to
+        description: Application Environment to deploy to (e.g alpha, beta, qa, uat, prod )
         required: true
-      region:
+      aws-stack-name:
         type: string
-        description:  region to deploy to
+        description: Name for the AWS CloudFormation stack to deploy to
+        required: true
+      aws-region:
+        type: string
+        description:  Region to deploy to
         required: true
 
 jobs:
@@ -25,7 +29,6 @@ jobs:
     environment: ${{ inputs.environment }}
 
     steps:
-      - run: echo Delpoying to ${{ inputs.environment }} environment in the ${{ inputs.region }} region
       # - name: Debugging Secrets to make sure the right version by environment is set
       #   run: echo ${{ secrets.AWS_SECRET_ACCESS_KEY }}| sed 's/./& /g'
 
@@ -43,16 +46,15 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ inputs.region }}
+          aws-region: ${{ inputs.aws-region }}
 
       - name: Build App Using SAM CLI
-        run: sam build --use-container          
+        run: sam build
 
-      # Potentially revisit this approach if something with sam build doesn't work out
-      # - name: Download Build Outputs
-      #   uses: actions/download-artifact@v3å
-      #   with:
-      #     name: dist
-
-      # - name: List files in the repository
-      #   run: ls ${{ github.workspace }}         
+      # - name: Deploy Using SAM CLI
+      #   run: sam deploy \
+      #     --region ${{ inputs.aws-region }} \
+      #     --stack-name ${{ inputs.aws-stack-name }} \
+      #     --capabilities CAPABILITY_IAM \
+      #     --no-confirm-changeset \
+      #     --no-fail-on-empty-changeset 
