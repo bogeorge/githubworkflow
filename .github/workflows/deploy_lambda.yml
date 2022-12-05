@@ -55,7 +55,8 @@ jobs:
         run: |
           sam deploy \
             --region ${{ inputs.aws-region }} \
-            --stack-name sample-aplication-alpha
+            --stack-name sample-aplication-alpha \
+            --resolve-s3 \
             --capabilities CAPABILITY_IAM \
             --no-confirm-changeset \
             --no-fail-on-empty-changeset 
