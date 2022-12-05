@@ -52,6 +52,8 @@ jobs:
     outputs:
       AWS_STACK_NAME: ${{ fromJSON(needs.extract-config.outputs.result).AWS_STACK_NAME }}  
     needs: [ extract-config ]
+    steps:
+      - run: echo $ {{ needs.extract-config.outputs.result }}
 
   build:
      #uses: bogeorge/github_workflows/.github/workflows/build_yarn.yml@v2.0
