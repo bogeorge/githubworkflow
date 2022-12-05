@@ -9,7 +9,7 @@ name: Deploy Lambda
 on:
   workflow_call:
     inputs:
-     environment:
+      environment:
         type: string
         description: environment to deploy to
         required: true
