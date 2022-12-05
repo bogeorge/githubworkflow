@@ -15,36 +15,43 @@ jobs:
   # Why Do this?  
   # Well because Github is lame and doesn't seem to let us simple use env: at the workflow level and pass 
   # those variables into our jobs for example using the with: option to pass them to workflows
+  # env-setup:
+  #   runs-on: ubuntu-latest
+  #   outputs:
+  #     AWS_STACK_NAME: ${{ fromJSON(steps.env-export.outputs.result).AWS_STACK_NAME }}
+  #   steps:
+  #     - name: Clone ${{ github.repository }} repo to the runner
+  #       uses: actions/checkout@v3 #checkout repo to github/workspace      
+
+  #     - name:  Export Config to Outputs
+  #       id: env-export
+  #       uses: actions/github-script@v6
+  #       with: 
+  #         script: |
+  #           const { readFileSync } = require('node:fs')
+  #           const { resolve } = require('node:path')
+  #           const { env } = require('node:process')
+  #           const { parse } = JSON
+  #           const config = parse(
+  #             readFileSync(
+  #               resolve(
+  #                 env.GITHUB_WORKSPACE,
+  #                 '.github/workflows/config.json'
+  #               ),
+  #               'utf8'
+  #             )
+  #           )
+
+  #           console.log('config', config)
+
+  #           return config
+  extract-config:
+    uses: ./.github/workflows/extract_config.yml
+  
   env-setup:
-    runs-on: ubuntu-latest
     outputs:
-      AWS_STACK_NAME: ${{ fromJSON(steps.env-export.outputs.result).AWS_STACK_NAME }}
-    steps:
-      - name: Clone ${{ github.repository }} repo to the runner
-        uses: actions/checkout@v3 #checkout repo to github/workspace      
-
-      - name:  Export Config to Outputs
-        id: env-export
-        uses: actions/github-script@v6
-        with: 
-          script: |
-            const { readFileSync } = require('node:fs')
-            const { resolve } = require('node:path')
-            const { env } = require('node:process')
-            const { parse } = JSON
-            const config = parse(
-              readFileSync(
-                resolve(
-                  env.GITHUB_WORKSPACE,
-                  '.github/workflows/config.json'
-                ),
-                'utf8'
-              )
-            )
-
-            console.log('config', config)
-
-            return config
+      AWS_STACK_NAME: ${{ fromJSON(needs.extract-config.outputs.result).AWS_STACK_NAME }}  
+    needs: [ extract-config ]
 
   build:
      #uses: bogeorge/github_workflows/.github/workflows/build_yarn.yml@v2.0

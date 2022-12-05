@@ -1,0 +1,49 @@
+#----------------------------------------------------------------------------------------------------------------------
+# This workflow will setup environment variables and should be called on EVERY commit
+#----------------------------------------------------------------------------------------------------------------------
+name: Extract Config
+
+on:
+  workflow_call:
+    inputs:
+      config-file:
+        type: string
+        description: Name of the config file to use
+        required: true
+    outputs:
+      config:
+        description: JSON from provided config file
+        value: ${{ jobs.config.export.outputs.result }}
+
+jobs:
+
+  config:
+    runs-on: ubuntu-latest
+
+    steps:
+
+     - name: Clone ${{ github.repository }} repo to the runner
+        uses: actions/checkout@v3 #checkout repo to github/workspace      
+
+      - name:  Export Config to Outputs
+        id: export
+        uses: actions/github-script@v6
+        with: 
+          script: |
+            const { readFileSync } = require('node:fs')
+            const { resolve } = require('node:path')
+            const { env } = require('node:process')
+            const { parse } = JSON
+            const config = parse(
+              readFileSync(
+                resolve(
+                  env.GITHUB_WORKSPACE,
+                  '.github/workflows/${{inputs.config-file}}'
+                ),
+                'utf8'
+              )
+            )
+
+            console.log('config', config)
+
+            return config
