@@ -47,6 +47,8 @@ jobs:
   #           return config
   extract-config:
     uses: ./.github/workflows/extract_config.yml
+      with: 
+        config-file-path: '.github/workflows/config.json'
   
   env-setup:
     runs-on: ubuntu-latest

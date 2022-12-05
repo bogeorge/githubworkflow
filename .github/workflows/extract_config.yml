@@ -6,9 +6,9 @@ name: Extract Config
 on:
   workflow_call:
     inputs:
-      config-file:
+      config-file-path:
         type: string
-        description: Name of the config file to use
+        description: Path of the config file to use
         required: true
     outputs:
       config:
@@ -38,7 +38,7 @@ jobs:
               readFileSync(
                 resolve(
                   env.GITHUB_WORKSPACE,
-                  '.github/workflows/${{inputs.config-file}}'
+                  '${{inputs.config-file}}'
                 ),
                 'utf8'
               )
