@@ -18,7 +18,7 @@ jobs:
   env-setup:
     runs-on: ubuntu-latest
     outputs:
-      env-setup: ${{ steps.init.outputs.env-setup }}
+      AWS_STACK_NAME: ${{ steps.init.outputs.AWS_STACK_NAME }}
     steps:
       - name: init
         run: |
