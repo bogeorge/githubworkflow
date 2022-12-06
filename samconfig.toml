@@ -1,11 +1,15 @@
 version=0.1
 
 # Notes, Tasks, Reminders, etc.
-#   resolve_s3 is used for automatically creating an s3 bucket for packaging and deploying...this should be fine but if needed we can 
+#   resolve_s3 
+#       Used for automatically creating an s3 bucket for packaging and deploying...this should be fine but if needed we can 
 #       provide a named bucket using s3_bucket instead
 #       https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-global.html
-#   Currently using capabilities = "CAPABILITY_IAM" which means we aren't using custom named capabilites in IAM and we may need to revisit
+#   capabilities
+#       Currently using CAPABILITY_IAM which means we aren't using custom named capabilites in IAM and we may need to revisit
 #       https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateStack.html#API_CreateStack_RequestParameters
+#   parameter_overrides
+#       Using this to pass parameters to template.yml dynamically as part of deployment so we can vary them by environment
 
 # Parameters for alpha application environment
 
@@ -17,7 +21,8 @@ fail_on_empty_changeset = false
 resolve_s3 = true
 capabilities = "CAPABILITY_IAM"
 parameter_overrides = [
-    "LamdaFunctionName=sample-application-api-alpha"
+    "LamdaFunctionName=sample-application-api-alpha",
+    "RoleName=sample-application-api-alpha"
 ]
 
 # Parameters for alpha application environment
@@ -28,6 +33,9 @@ confirm_changeset = false
 fail_on_empty_changeset = false
 resolve_s3 = true
 capabilities = "CAPABILITY_IAM"
+parameter_overrides = [
+    "LamdaFunctionName=sample-application-api-beta"
+]
 
 # Parameters for alpha application environment
 [qa.global.parameters]
@@ -37,6 +45,9 @@ confirm_changeset = false
 fail_on_empty_changeset = false
 resolve_s3 = true
 capabilities = "CAPABILITY_IAM"
+parameter_overrides = [
+    "LamdaFunctionName=sample-application-api-qa"
+]
 
 # Parameters for alpha application environment
 [uat.global.parameters]
@@ -46,6 +57,9 @@ confirm_changeset = false
 fail_on_empty_changeset = false
 resolve_s3 = true
 capabilities = "CAPABILITY_IAM"
+parameter_overrides = [
+    "LamdaFunctionName=sample-application-api-uat"
+]
 
 # Parameters for alpha application environment
 [prod.global.parameters]
@@ -55,3 +69,6 @@ confirm_changeset = false
 fail_on_empty_changeset = false
 resolve_s3 = true
 capabilities = "CAPABILITY_IAM"
+parameter_overrides = [
+    "LamdaFunctionName=sample-application-api-prod"
+]
