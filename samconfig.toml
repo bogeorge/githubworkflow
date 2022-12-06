@@ -1,6 +1,8 @@
 version=0.1
 
-# Notes, Tasks, Reminders, etc.
+# TODO - can we have a common place for parameters that are the same across environments
+
+# About Key Parameters
 #   resolve_s3 
 #       Used for automatically creating an s3 bucket for packaging and deploying...this should be fine but if needed we can 
 #       provide a named bucket using s3_bucket instead
@@ -12,7 +14,6 @@ version=0.1
 #       Using this to pass parameters to template.yml dynamically as part of deployment so we can vary them by environment
 
 # Parameters for alpha application environment
-
 [alpha.global.parameters]
 region = "us-east-2"
 stack_name = "sample-application-api-alpha"
