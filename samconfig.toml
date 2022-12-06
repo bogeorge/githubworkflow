@@ -4,7 +4,7 @@ version=0.1
 confirm_changeset = false
 fail_on_empty_changeset = false
 
-[alpha.deplopy.parameters]
+[alpha.deploy.parameters]
 region = "us-east-2"
 stack_name = "sample-aplication-alpha"
 s3_bucket = "sample-application-alpha"
