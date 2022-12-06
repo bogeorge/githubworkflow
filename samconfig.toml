@@ -3,37 +3,52 @@ version=0.1
 # Notes, Tasks, Reminders, etc.
 #   resolve_s3 is used for automatically creating an s3 bucket for packaging and deploying...this should be fine but if needed we can 
 #       provide a named bucket using s3_bucket instead
-#       https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-deploy.html
+#       https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-global.html
 #   Currently using capabilities = "CAPABILITY_IAM" which means we aren't using custom named capabilites in IAM and we may need to revisit
 #       https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateStack.html#API_CreateStack_RequestParameters
 
-[default.global.parameters]
+# Parameters for alpha application environment
+
+[alpha.global.parameters]
+region = "us-east-2"
+stack_name = "sample-application-api-alpha"
 confirm_changeset = false
 fail_on_empty_changeset = false
 resolve_s3 = true
 capabilities = "CAPABILITY_IAM"
 
 # Parameters for alpha application environment
-[alpha.deploy.parameters]
-region = "us-east-2"
-stack_name = "sample-application-api-alpha"
-
-# Parameters for alpha application environment
-[beta.deploy.parameters]
+[beta.global.parameters]
 region = "us-east-2"
 stack_name = "sample-application-api-beta"
+confirm_changeset = false
+fail_on_empty_changeset = false
+resolve_s3 = true
+capabilities = "CAPABILITY_IAM"
 
 # Parameters for alpha application environment
-[qa.deploy.parameters]
+[qa.global.parameters]
 region = "us-east-2"
 stack_name = "sample-application-api-qa"
+confirm_changeset = false
+fail_on_empty_changeset = false
+resolve_s3 = true
+capabilities = "CAPABILITY_IAM"
 
 # Parameters for alpha application environment
-[uat.deploy.parameters]
+[uat.global.parameters]
 region = "us-east-2"
 stack_name = "sample-application-api-uat"
+confirm_changeset = false
+fail_on_empty_changeset = false
+resolve_s3 = true
+capabilities = "CAPABILITY_IAM"
 
 # Parameters for alpha application environment
-[prod.deploy.parameters]
+[prod.global.parameters]
 region = "us-east-2"
 stack_name = "sample-application-api-prod"
+confirm_changeset = false
+fail_on_empty_changeset = false
+resolve_s3 = true
+capabilities = "CAPABILITY_IAM"
