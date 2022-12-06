@@ -21,6 +21,11 @@ Globals:
     Architectures:
     - arm64  
 
+Parameters:
+  LamdaFunctionName:
+    Type: String
+    Description: Name of the Lamda Function when deployed to AWS
+
 Resources:
   # Each Lambda function is defined by properties:
   # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
@@ -28,10 +33,11 @@ Resources:
   # This is a Lambda function config associated with the source code: in src/handlers/example.ts
   MainFunction:
     Type: AWS::Serverless::Function
-    FunctionName: sample-application
     Metadata:
       BuildMethod: makefile    
     Properties:
+      FunctionName: 
+        Ref: LamdaFunctionName
       Handler: dist/lambda.handler
       Description: Sample APIs  
       Events:
