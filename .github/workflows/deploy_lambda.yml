@@ -13,10 +13,6 @@ on:
         type: string
         description: Application Environment to deploy to (e.g alpha, beta, qa, uat, prod )
         required: true
-      aws-stack-name:
-        type: string
-        description: Name for the AWS CloudFormation stack to deploy to
-        required: true
       aws-region:
         type: string
         description:  Region to deploy to
@@ -50,12 +46,12 @@ jobs:
 
       - name: Build App Using SAM CLI
         run: |
-          echo sam build --config-env ${{ inputs.environment }} 
-          sam build --config-env ${{ inputs.environment }}          
+          sam build \
+            --config-env ${{ inputs.app-environment }}          
 
       - name: Deploy Using SAM CLI
         run: |
           sam deploy \
-            --config-env ${{ inputs.environment }}
+            --config-env ${{ inputs.app-environment }}
             --no-confirm-changeset \
             --no-fail-on-empty-changeset \   
