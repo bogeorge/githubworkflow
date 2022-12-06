@@ -45,13 +45,7 @@ jobs:
           aws-region: ${{ inputs.aws-region }}
 
       - name: Build App Using SAM CLI
-        run: |
-          sam build \
-            --config-env ${{ inputs.app-environment }}          
+        run: sam build --config-env ${{ inputs.app-environment }}          
 
       - name: Deploy Using SAM CLI
-        run: |
-          sam deploy \
-            --config-env ${{ inputs.app-environment }}
-            --no-confirm-changeset \
-            --no-fail-on-empty-changeset \   
+        run: sam deploy --config-env ${{ inputs.app-environment }}

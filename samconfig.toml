@@ -2,9 +2,10 @@ version=0.1
 
 [default.global.parameters]
 confirm_changeset = false
+fail_on_empty_changeset = false
 
 [alpha.deplopy.parameters]
 region = "us-east-2"
-stack-name = "sample-aplication-alpha"
-s3-bucket = "sample-application-alpha"
+stack_name = "sample-aplication-alpha"
+s3_bucket = "sample-application-alpha"
 capabilities = "CAPABILITY_IAM"
