@@ -35,7 +35,7 @@ Jobs:
 ### Flow Diagram for Beta Pipeline
 ```mermaid
 graph TD;
-    id1([Commit to a Beta Branch])
+    id1([Commit to the Beta Branch])
     -->id2[Build and Test]
     id2 --> id3[Deploy Lamba to alpha environment]
     id2 --> id4[Deploy Lamba to beta environment]
@@ -58,7 +58,7 @@ Jobs:
 ### Flow Diagram for Main Pipeline
 ```mermaid
 graph TD;
-    id1([Commit to Main Branch])
+    id1([Commit to the Main Branch])
     -->id2[Build and Test]--QA Approvers Notified
     -->id3[QA Approval]
     -->id4[Deploy Lamba to qa environment]--UAT Approvers Notified
