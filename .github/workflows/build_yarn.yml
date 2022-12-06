@@ -8,7 +8,6 @@ on:
 
 jobs:
 
-
   build:
     runs-on: ubuntu-latest
 
@@ -35,8 +34,8 @@ jobs:
       # # generate our documentation
       # # - run: yarn doc
 
-      - name: Upload Build Outputs
-        uses: actions/upload-artifact@v3
-        with:
-          name: dist
-          path: dist
+      # - name: Upload Build Outputs
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: dist
+      #     path: dist

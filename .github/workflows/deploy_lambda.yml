@@ -9,19 +9,22 @@ name: Deploy Lambda
 on:
   workflow_call:
     inputs:
-     environment:
+      ENVIRONMENT-STAGE:
         type: string
-        description: environment to deploy to
-        required: true   
+        description: Application Environment to deploy to (e.g alpha, beta, qa, uat, prod )
+        required: true
+      AWS-REGION:
+        type: string
+        description:  Region to deploy to
+        required: true
 
 jobs:
   deploy: 
-    # name: Deploy ${{ inputs.environment }} 
+    # name: Deploy ${{ inputs.ENVIRONMENT-STAGE }} 
     runs-on: ubuntu-latest
-    environment: ${{ inputs.environment }}
+    environment: ${{ inputs.ENVIRONMENT-STAGE }}
 
     steps:
-      - run: echo Delpoying to ${{ inputs.environment }} environment
       # - name: Debugging Secrets to make sure the right version by environment is set
       #   run: echo ${{ secrets.AWS_SECRET_ACCESS_KEY }}| sed 's/./& /g'
 
@@ -34,11 +37,15 @@ jobs:
       - name: Setup SAM CLI
         uses: aws-actions/setup-sam@v2
 
-      # Potentially revisit this approach if something with sam build doesn't work out
-      # - name: Download Build Outputs
-      #   uses: actions/download-artifact@v3å
-      #   with:
-      #     name: dist
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS-REGION: ${{ inputs.AWS-REGION }}
 
-      # - name: List files in the repository
-      #   run: ls ${{ github.workspace }}         
+      - name: Build App Using SAM CLI
+        run: sam build --config-env ${{ inputs.ENVIRONMENT-STAGE }}          
+
+      - name: Deploy Using SAM CLI
+        run: sam deploy --config-env ${{ inputs.ENVIRONMENT-STAGE }}
