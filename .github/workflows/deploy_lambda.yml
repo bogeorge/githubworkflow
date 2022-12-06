@@ -50,8 +50,8 @@ jobs:
 
       - name: Build App Using SAM CLI
         run: |
-          sam build \
-            --config-env ${{ inputs.environment }}
+          echo sam build --config-env ${{ inputs.environment }} 
+          sam build --config-env ${{ inputs.environment }}          
 
       - name: Deploy Using SAM CLI
         run: |
