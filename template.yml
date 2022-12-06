@@ -25,9 +25,9 @@ Parameters:
   LamdaFunctionName:
     Type: String
     Description: Name of the Lamda Function when deployed to AWS
-  RoleName:
-    Type: String
-    Description: Name of the IAM Role used for Lamda Function Execution
+  # RoleName:
+  #   Type: String
+  #   Description: Name of the IAM Role used for Lamda Function Execution
 
 Resources:
   # Each Lambda function is defined by properties:
