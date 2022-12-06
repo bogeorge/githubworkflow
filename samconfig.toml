@@ -1,13 +1,39 @@
 version=0.1
 
-[default.global.parameters]
+# Notes, Tasks, Reminders, etc.
+#   resolve_s3 is used for automatically creating an s3 bucket for packaging and deploying...this should be fine but if needed we can 
+#       provide a named bucket using s3_bucket instead
+#       https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-deploy.html
+#   Currently using capabilities = "CAPABILITY_IAM" which means we aren't using custom named capabilites in IAM and we may need to revisit
+#       https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateStack.html#API_CreateStack_RequestParameters
+
+[default.deploy.parameters]
 confirm_changeset = false
 fail_on_empty_changeset = false
-
-[alpha.deploy.parameters]
-region = "us-east-2"
-stack_name = "sample-aplication-alpha"
-#TODO figure out how to create a named bucket
-#s3_bucket = "sample-application-alpha"
 resolve_s3 = true
 capabilities = "CAPABILITY_IAM"
+
+# Parameters for alpha application environment
+[alpha.deploy.parameters]
+region = "us-east-2"
+stack_name = "sample-application-api-alpha"
+
+# Parameters for alpha application environment
+[beta.deploy.parameters]
+region = "us-east-2"
+stack_name = "sample-application-api-beta"
+
+# Parameters for alpha application environment
+[qa.deploy.parameters]
+region = "us-east-2"
+stack_name = "sample-application-api-qa"
+
+# Parameters for alpha application environment
+[uat.deploy.parameters]
+region = "us-east-2"
+stack_name = "sample-application-api-uat"
+
+# Parameters for alpha application environment
+[prod.deploy.parameters]
+region = "us-east-2"
+stack_name = "sample-application-api-prod"
