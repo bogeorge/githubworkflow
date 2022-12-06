@@ -1,6 +1,6 @@
 #----------------------------------------------------------------------------------------------------------------------
 # This workflow should only execute when code is committed to beta which means it needs to be tested before going to
-# the beta (integrated development environment) AND the alpha environment
+# the beta (integrated development environment) AND the alpha environment/stage
 #----------------------------------------------------------------------------------------------------------------------
 name: Beta Pipeline
 
@@ -17,15 +17,15 @@ jobs:
   deploy-beta: 
     uses: ./.github/workflows/deploy_lambda.yml
     with:
-      app-environment: beta
-      aws-region: us-east-2
+      ENVIRONMENT-STAGE: beta
+      AWS-REGION: us-east-2
     secrets: inherit # pass all secrets
     needs: [ build ]
 
   deploy-alpha:
     uses: ./.github/workflows/deploy_lambda.yml
     with:
-      app-environment: alpha
-      aws-region: us-east-2
+      ENVIRONMENT-STAGE: alpha
+      AWS-REGION: us-east-2
     secrets: inherit # pass all secrets
     needs: [ build ]    

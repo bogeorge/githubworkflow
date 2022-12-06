@@ -9,20 +9,20 @@ name: Deploy Lambda
 on:
   workflow_call:
     inputs:
-      app-environment:
+      ENVIRONMENT-STAGE:
         type: string
         description: Application Environment to deploy to (e.g alpha, beta, qa, uat, prod )
         required: true
-      aws-region:
+      AWS-REGION:
         type: string
         description:  Region to deploy to
         required: true
 
 jobs:
   deploy: 
-    # name: Deploy ${{ inputs.app-environment }} 
+    # name: Deploy ${{ inputs.ENVIRONMENT-STAGE }} 
     runs-on: ubuntu-latest
-    environment: ${{ inputs.app-environment }}
+    environment: ${{ inputs.ENVIRONMENT-STAGE }}
 
     steps:
       # - name: Debugging Secrets to make sure the right version by environment is set
@@ -42,10 +42,10 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ inputs.aws-region }}
+          AWS-REGION: ${{ inputs.AWS-REGION }}
 
       - name: Build App Using SAM CLI
-        run: sam build --config-env ${{ inputs.app-environment }}          
+        run: sam build --config-env ${{ inputs.ENVIRONMENT-STAGE }}          
 
       - name: Deploy Using SAM CLI
-        run: sam deploy --config-env ${{ inputs.app-environment }}
+        run: sam deploy --config-env ${{ inputs.ENVIRONMENT-STAGE }}

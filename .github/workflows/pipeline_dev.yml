@@ -1,6 +1,6 @@
 #----------------------------------------------------------------------------------------------------------------------
 # This workflow will execute to build and test the application on commits to development branches
-# It can optionally deploy to the alpha environment by prefixing your last commit comment with #alpha
+# It can optionally deploy to the alpha environment/stage by prefixing your last commit comment with #alpha
 #----------------------------------------------------------------------------------------------------------------------
 name: Development Pipeline
 
@@ -21,7 +21,7 @@ jobs:
     #uses: bogeorge/github_workflows/.github/workflows/deploy_lambda.yml@v2.0
     uses: ./.github/workflows/deploy_lambda.yml
     with:
-      app-environment: alpha
-      aws-region: us-east-2
+      ENVIRONMENT-STAGE: alpha
+      AWS-REGION: us-east-2
     secrets: inherit # pass all secrets
     needs: [ build ]

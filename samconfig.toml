@@ -25,9 +25,9 @@ parameter_overrides = [
     "LamdaFunctionName=sample-application-api-alpha",
     "RoleName=sample-application-api-alpha"
 ]
-tags = "environment=alpha type=backend-api"
+tags = "STAGE=\"alpha\" TYPE=\"backend-api\""
 
-# Parameters for alpha application environment
+# Parameters for beta application environment
 [beta.global.parameters]
 region = "us-east-2"
 stack_name = "sample-application-api-beta"
@@ -38,8 +38,9 @@ capabilities = "CAPABILITY_IAM"
 parameter_overrides = [
     "LamdaFunctionName=sample-application-api-beta"
 ]
+tags = "STAGE=\"beta\" TYPE=\"backend-api\""
 
-# Parameters for alpha application environment
+# Parameters for qa application environment
 [qa.global.parameters]
 region = "us-east-2"
 stack_name = "sample-application-api-qa"
@@ -50,8 +51,9 @@ capabilities = "CAPABILITY_IAM"
 parameter_overrides = [
     "LamdaFunctionName=sample-application-api-qa"
 ]
+tags = "STAGE=\"qa\" TYPE=\"backend-api\""
 
-# Parameters for alpha application environment
+# Parameters for uat application environment
 [uat.global.parameters]
 region = "us-east-2"
 stack_name = "sample-application-api-uat"
@@ -62,8 +64,9 @@ capabilities = "CAPABILITY_IAM"
 parameter_overrides = [
     "LamdaFunctionName=sample-application-api-uat"
 ]
+tags = "STAGE=\"uat\" TYPE=\"backend-api\""
 
-# Parameters for alpha application environment
+# Parameters for prod application environment
 [prod.global.parameters]
 region = "us-east-2"
 stack_name = "sample-application-api-prod"
@@ -74,3 +77,4 @@ capabilities = "CAPABILITY_IAM"
 parameter_overrides = [
     "LamdaFunctionName=sample-application-api-prod"
 ]
+tags = "STAGE=\"prod\" TYPE=\"backend-api\""

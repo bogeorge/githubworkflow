@@ -22,7 +22,7 @@ graph TD;
     id1([Commit to a 'feature' Branch])
     -->id2[Build and Test]
     -->id3{{comment starts with #alpha?}}
-    id3 -- Yes -->id5[Deploy Lamba to alpha environment]
+    id3 -- Yes -->id5[Deploy Lamba to alpha environment/stage]
 ```    
 
 ## [Beta Pipeline](./pipeline_beta.yml)
@@ -37,8 +37,8 @@ Jobs:
 graph TD;
     id1([Commit to the Beta Branch])
     -->id2[Build and Test]
-    id2 --> id3[Deploy Lamba to alpha environment]
-    id2 --> id4[Deploy Lamba to beta environment]
+    id2 --> id3[Deploy Lamba to alpha environment/stage]
+    id2 --> id4[Deploy Lamba to beta environment/stage]
 ```   
 
 ## [Main Pipeline](./pipeline_main.yml)
@@ -61,9 +61,9 @@ graph TD;
     id1([Commit to the Main Branch])
     -->id2[Build and Test]--QA Approvers Notified
     -->id3[QA Approval]
-    -->id4[Deploy Lamba to qa environment]--UAT Approvers Notified
+    -->id4[Deploy Lamba to qa environment/stage]--UAT Approvers Notified
     -->id5[UAT Approval]
-    -->id6[Deploy Lamba to uat environment]--PROD Approvers Notified
+    -->id6[Deploy Lamba to uat environment/stage]--PROD Approvers Notified
     -->id7[PROD Approval]
-    -->id8[Deploy Lamba to prod environment]
+    -->id8[Deploy Lamba to prod environment/stage]
 ```    
