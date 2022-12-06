@@ -1,0 +1,5 @@
+[alpha.deplopy.parameters]
+region = "us-east-2"
+stack-name = "sample-aplication-alpha"
+s3-bucket = "sample-application-alpha"
+capabilities = "CAPABILITY_IAM"

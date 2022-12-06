@@ -5,7 +5,7 @@
 # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/format-version-structure.html
 AWSTemplateFormatVersion: 2010-09-09
 Description: >
-  t4-nom-mgmt
+  sample-application
 
 # Transform section specifies one or more macros that AWS CloudFormation uses to process your template
 # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/transform-section-structure.html
@@ -28,11 +28,23 @@ Resources:
   # This is a Lambda function config associated with the source code: in src/handlers/example.ts
   MainFunction:
     Type: AWS::Serverless::Function
+    FunctionName: sample-application
     Metadata:
       BuildMethod: makefile    
     Properties:
       Handler: dist/lambda.handler
       Description: Sample APIs  
+      Events:
+        RootEndpoint:
+          Properties:
+            Method: ANY
+            Path: /
+          Type: Api
+        EverythingElse:
+          Properties:
+            Method: ANY
+            Path: /{proxy+}
+          Type: Api      
 
   # Shared layer with Lambda runtime dependencies
   RuntimeDependenciesLayer:
