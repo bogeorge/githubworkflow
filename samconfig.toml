@@ -7,7 +7,7 @@ version=0.1
 #   Currently using capabilities = "CAPABILITY_IAM" which means we aren't using custom named capabilites in IAM and we may need to revisit
 #       https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateStack.html#API_CreateStack_RequestParameters
 
-[default.deploy.parameters]
+[default.global.parameters]
 confirm_changeset = false
 fail_on_empty_changeset = false
 resolve_s3 = true
