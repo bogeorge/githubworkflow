@@ -1,3 +1,8 @@
+version=0.1
+
+[default.global.parameters]
+confirm_changeset = false
+
 [alpha.deplopy.parameters]
 region = "us-east-2"
 stack-name = "sample-aplication-alpha"

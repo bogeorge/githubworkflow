@@ -49,7 +49,9 @@ jobs:
           aws-region: ${{ inputs.aws-region }}
 
       - name: Build App Using SAM CLI
-        run: sam build
+        run: |
+          sam build \
+            --config-env ${{ inputs.environment }}
 
       - name: Deploy Using SAM CLI
         run: |
