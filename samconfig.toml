@@ -25,6 +25,7 @@ parameter_overrides = [
     "LamdaFunctionName=sample-application-api-alpha",
     "RoleName=sample-application-api-alpha"
 ]
+tags = "environment=alpha,type=backend-api"
 
 # Parameters for alpha application environment
 [beta.global.parameters]
