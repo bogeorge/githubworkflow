@@ -7,5 +7,7 @@ fail_on_empty_changeset = false
 [alpha.deploy.parameters]
 region = "us-east-2"
 stack_name = "sample-aplication-alpha"
-s3_bucket = "sample-application-alpha"
+#TODO figure out how to create a named bucket
+#s3_bucket = "sample-application-alpha"
+resolve_s3 = true
 capabilities = "CAPABILITY_IAM"
