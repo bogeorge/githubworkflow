@@ -41,8 +41,8 @@ Resources:
     Properties:
       FunctionName: 
         Ref: LamdaFunctionName
-      Role:
-        Ref: RoleName
+      # Role:
+      #   Ref: RoleName
       Handler: dist/lambda.handler
       Description: Sample APIs  
       Events:
