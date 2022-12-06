@@ -9,9 +9,6 @@ on:
     branches:
       - 'beta'
 
-env:
-  aws-stack-name: sample-application
-
 jobs:
 
   build:
@@ -22,7 +19,6 @@ jobs:
     with:
       app-environment: beta
       aws-region: us-east-2
-      aws-stack-name: "${{ env.aws-stack-name }}-beta"
     secrets: inherit # pass all secrets
     needs: [ build ]
 
@@ -31,6 +27,5 @@ jobs:
     with:
       app-environment: alpha
       aws-region: us-east-2
-      aws-stack-name: "${{ env.aws-stack-name }}-alpha"
     secrets: inherit # pass all secrets
     needs: [ build ]    

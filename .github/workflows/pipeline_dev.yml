@@ -9,8 +9,6 @@ on:
     branches-ignore:
       - 'main'
       - 'beta'
-env:
-  AWS_STACK_NAME: 'sample-application'
 
 jobs:
 
@@ -19,7 +17,7 @@ jobs:
      uses: ./.github/workflows/build_yarn.yml
 
   deploy-alpha:
-    # if: ${{ startsWith(github.event.head_commit.message, '#alpha') }}
+    if: ${{ startsWith(github.event.head_commit.message, '#alpha') }}
     #uses: bogeorge/github_workflows/.github/workflows/deploy_lambda.yml@v2.0
     uses: ./.github/workflows/deploy_lambda.yml
     with:

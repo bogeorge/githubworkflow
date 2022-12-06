@@ -6,10 +6,10 @@ Below is a list of resusable workflows used by the pipeline.  For now they are i
 
 | Workflow | Purpose
 | -------- | ----
-| Build and Test (build_yarn.yml) | Build, Test and Lint Code using Yarn
-| Deploy Lambda (deploy_lambda.yml) | Provided an environment parameter setup SAM CLI and deploy Lambda function
+| [Build and Test](build_yarn.yml) | Build, Test and Lint Code using Yarn
+| [Deploy Lambda](deploy_lambda.yml) | Provided an environment parameter setup SAM CLI and deploy Lambda function
 
-## Development Pipeline
+## [Development Pipeline](./pipeline_dev.yml)
 Triggered on every 'push' commit to any branch other than 'main' or 'beta'.
 
 Jobs:
@@ -21,11 +21,11 @@ Jobs:
 graph TD;
     id1([Commit to a 'feature' Branch])
     -->id2[Build and Test]
-    -->id3{#alpha comment}
+    -->id3{{comment starts with #alpha?}}
     id3 -- Yes -->id5[Deploy Lamba to alpha environment]
 ```    
 
-## Beta Pipeline
+## [Beta Pipeline](./pipeline_beta.yml)
 Triggered on every 'push' commit to the beta branch. Typically as the result of an approved pull request from a dev branch into beta.
 
 Jobs:
@@ -41,7 +41,7 @@ graph TD;
     id2 --> id4[Deploy Lamba to beta environment]
 ```   
 
-## Main Pipeline
+## [Main Pipeline](./pipeline_main.yml)
 Triggered on every 'push' commit to the main branch. Typically as the result of an approved pull request from the beta branch into main.
 
 Jobs:
