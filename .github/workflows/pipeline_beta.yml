@@ -19,7 +19,9 @@ jobs:
     with:
       ENVIRONMENT-STAGE: beta
       AWS-REGION: us-east-2
-    secrets: inherit # pass all secrets
+    secrets: 
+      AWS_ACCESS_KEY_ID: ${{ secrets.BETA_AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.BETA_AWS_SECRET_ACCESS_KEY }}
     needs: [ build ]
 
   deploy-alpha:
@@ -27,5 +29,7 @@ jobs:
     with:
       ENVIRONMENT-STAGE: alpha
       AWS-REGION: us-east-2
-    secrets: inherit # pass all secrets
+    secrets: 
+      AWS_ACCESS_KEY_ID: ${{ secrets.ALPHA_AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.ALPHA_AWS_SECRET_ACCESS_KEY }}
     needs: [ build ]    
