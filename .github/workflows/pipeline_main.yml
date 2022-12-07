@@ -19,7 +19,9 @@ jobs:
     with:
       appenvironment: qa
       AWS-REGION: us-east-2
-    secrets: inherit # pass all secrets
+    secrets: 
+      AWS_ACCESS_KEY_ID: ${{ secrets.QA_AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.QA_AWS_SECRET_ACCESS_KEY }}
     needs: [ build ]
 
   deploy-uat: 
@@ -27,7 +29,9 @@ jobs:
     with:
       ENVIRONMENT-STAGE: uat
       AWS-REGION: us-east-2
-    secrets: inherit # pass all secrets
+    secrets: 
+      AWS_ACCESS_KEY_ID: ${{ secrets.UAT_AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.UAT_AWS_SECRET_ACCESS_KEY }}
     needs: [ deploy-qa ]
 
   deploy-prod: 
@@ -35,5 +39,7 @@ jobs:
     with:
       ENVIRONMENT-STAGE: prod
       AWS-REGION: us-east-2
-    secrets: inherit # pass all secrets
+    secrets: 
+      AWS_ACCESS_KEY_ID: ${{ secrets.PROD_AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY }}
     needs: [ deploy-uat ]
