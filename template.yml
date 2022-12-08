@@ -49,7 +49,7 @@ Resources:
       Description: Sample APIs
       Environment:
         Variables:
-          ES_ID: '{{resolve:secretsmanager:alpha-es:id}}'
+          ES_ID: '{{resolve:secretsmanager:alpha-es:SecretString:id}}'
       Events:
         RootEndpoint:
           Properties:
