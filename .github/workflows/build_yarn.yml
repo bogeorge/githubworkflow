@@ -60,12 +60,10 @@ jobs:
           parse-json-secrets: true
 
       - name: Execute Script to create environment file
-        run: |
-          for item in "${{inputs.ENV-SCRIPT}}[@]"
-          do
-            echo "$item"
-          done
-          cat .env
+        uses: actions/github-script@v6
+          with: 
+            script: 
+              console.log('hellow world')
 
       - name: Execute Unit Tests
         run: yarn test
