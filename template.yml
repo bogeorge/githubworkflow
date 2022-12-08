@@ -25,15 +25,9 @@ Parameters:
   LamdaFunctionName:
     Type: String
     Description: Name of the Lamda Function when deployed to AWS
-  ENVVAR_ESCLOUDID:
+  ESSecretName:
     Type: String
-    Description: Path to secret manager for environment varialbe
-  ENVVAR_ESUSERNAME:
-    Type: String
-    Description: Path to secret manager for environment varialbe
-  ENVVAR_ESPASSWORD:
-    Type: String
-    Description: Path to secret manager for environment varialbe
+    Description: Name of the Secret that contains Elastic Search Information
 
 Resources:
   # Each Lambda function is defined by properties:
@@ -55,12 +49,12 @@ Resources:
       Description: Sample APIs
       Environment:
         Variables:
-          ESCLOUDID: 
-            Ref: SECRETPATH_ESCLOUDID
-          ESUSERNAME: 
-            Ref: SECRETPATH_ESUSERNAME
-          ESPASSWORD: 
-            Ref: SECRETPATH_ESPASSWORD                        
+          #{{resolve:secretsmanager:alpha-es:SecretString:user}}
+          ESCLOUDID: !Join
+                      - ''
+                      - - '{{resolve:secretsmanager:'
+                      - 'alpha-es'
+                      - ':SecretString:user}}'               
       Events:
         RootEndpoint:
           Properties:

@@ -23,9 +23,7 @@ resolve_s3 = true
 capabilities = "CAPABILITY_IAM"
 parameter_overrides = [
     "LamdaFunctionName=sample-application-api-alpha",
-    "SECRETPATH_ESCLOUDID={{resolve:secretsmanager:alpha-es:SecretString:id}}",
-    "SECRETPATH_ESUSERNAME={{resolve:secretsmanager:alpha-es:SecretString:user}}",
-    "SECRETPATH_ESPASSWORD={{resolve:secretsmanager:alpha-es:SecretString:pw}}"
+    "ESSecretName=alpha-es",
 ]
 tags = "STAGE=\"alpha\" TYPE=\"backend-api\""
 
