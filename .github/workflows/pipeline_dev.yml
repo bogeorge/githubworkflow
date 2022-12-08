@@ -30,7 +30,9 @@ jobs:
           parse-json-secrets: true
 
       - name: Check if env variable is set after fetching secrets
-        run: if [ -z ${alpha-es+x} ]; then echo "alpha-es is unset"; else echo "alpha-es is set to '$alpha-es'"; fi
+        run: |
+          echo test="$ES_ID" >> .env
+          cat .env
 
 
 
