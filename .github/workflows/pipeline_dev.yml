@@ -41,7 +41,9 @@ jobs:
     uses: ./.github/workflows/build_yarn.yml
     with:
       AWS-REGION: us-east-2
-      ENV-SECRETS: ES,alpha-es
+      ENV-SECRETS: |
+        ES,alpha-es
+        ET,alpha-test
     secrets: 
       AWS_ACCESS_KEY_ID: ${{ secrets.ALPHA_AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.ALPHA_AWS_SECRET_ACCESS_KEY }}    
