@@ -63,7 +63,16 @@ jobs:
         uses: actions/github-script@v6
           with:
             script: |
-              ${{ inputs.ENV-SCRIPT}}
+              while IFS= read -r ${{inputs.ENV-SCRIPT}}; do
+                echo %s >> .env
+              done
+              cat .env
+
+          # echo ESCLOUDID="$ES_ID" >> .env
+          # echo ESUSERNAME="$ES_USER" >> .env
+          # echo ESPASSWORD="$ES_PW" >> .env
+          # echo ESPASSWORD="$ES_PW" >> .env
+          # cat .env 
 
       - name: Execute Unit Tests
         run: yarn test
