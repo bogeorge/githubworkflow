@@ -25,9 +25,9 @@ Parameters:
   LamdaFunctionName:
     Type: String
     Description: Name of the Lamda Function when deployed to AWS
-  # RoleName:
-  #   Type: String
-  #   Description: Name of the IAM Role used for Lamda Function Execution
+  RoleName:
+    Type: String
+    Description: Name of the IAM Role used for Lamda Function Execution
 
 Resources:
   # Each Lambda function is defined by properties:
@@ -41,8 +41,10 @@ Resources:
     Properties:
       FunctionName: 
         Ref: LamdaFunctionName
-      # Role:
-      #   Ref: RoleName
+      Role:
+        Ref: !GetAtt
+          - MainFunctionRole
+          - Arn
       Handler: dist/lambda.handler
       Description: Sample APIs  
       Events:
@@ -56,6 +58,23 @@ Resources:
             Method: ANY
             Path: /{proxy+}
           Type: Api      
+
+  MainFunctionRole:
+    Type: AWS::IAM:Role
+    Properties:
+      RoleName: 
+        Ref: RoleName    
+      ManagedPolicyArns:
+        - 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Action:
+            - 'sts:AssumeRole'
+            Effect: Allow
+            Principal:
+              Service:
+                - lamda.amazonaws.com
 
   # Shared layer with Lambda runtime dependencies
   RuntimeDependenciesLayer:
