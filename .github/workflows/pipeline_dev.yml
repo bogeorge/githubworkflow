@@ -23,11 +23,11 @@ jobs:
           aws-region: us-east-2
 
       - name: Read secrets from AWS Secrets Manager into environment variables
-        uses: abhilash1in/aws-secrets-manager-action@v2.1.0
+        uses: aws-actions/aws-secretsmanager-get-secrets@v1
         with:
-          secrets: |
-            alpha-es
-          parse-json: true
+          secret-ids: |
+            ES, alpha-es
+          parse-json-secrets: true
 
       - name: Check if env variable is set after fetching secrets
         run: if [ -z ${alpha-es+x} ]; then echo "alpha-es is unset"; else echo "alpha-es is set to '$alpha-es'"; fi
