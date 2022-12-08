@@ -6,8 +6,8 @@ name: Build and Test
 on:
   workflow_call:
     inputs:
-      ENV-MAP:
-        type: boolean
+      ENV-SECRETS:
+        type: string
         description: 
         required: false
       AWS-REGION:
@@ -52,7 +52,7 @@ jobs:
         uses: aws-actions/aws-secretsmanager-get-secrets@v1
         with:
           secret-ids: |
-            ES, alpha-es
+            ${{ inputs.ENV-SECRETS}}
           parse-json-secrets: true
 
       - name: Check if env variable is set after fetching secrets
