@@ -25,9 +25,15 @@ Parameters:
   LamdaFunctionName:
     Type: String
     Description: Name of the Lamda Function when deployed to AWS
-  # RoleName:
-  #   Type: String
-  #   Description: Name of the IAM Role used for Lamda Function Execution
+  ENVVAR_ESCLOUDID:
+    Type: String
+    Description: Path to secret manager for environment varialbe
+  ENVVAR_ESUSERNAME:
+    Type: String
+    Description: Path to secret manager for environment varialbe
+  ENVVAR_ESPASSWORD:
+    Type: String
+    Description: Path to secret manager for environment varialbe
 
 Resources:
   # Each Lambda function is defined by properties:
@@ -49,7 +55,12 @@ Resources:
       Description: Sample APIs
       Environment:
         Variables:
-          ES_ID: '{{resolve:secretsmanager:alpha-es:SecretString:id}}'
+          ESCLOUDID: 
+            Ref: SECRETPATH_ESCLOUDID
+          ESUSERNAME: 
+            Ref: SECRETPATH_ESUSERNAME
+          ESPASSWORD: 
+            Ref: SECRETPATH_ESPASSWORD                        
       Events:
         RootEndpoint:
           Properties:
