@@ -26,25 +26,21 @@ jobs:
         uses: aws-actions/aws-secretsmanager-get-secrets@v1
         with:
           secret-ids: |
-            ES, alpha-es
+            ESCLOUDID, alpha-es:id
           parse-json-secrets: true
 
       - name: Check if env variable is set after fetching secrets
         run: |
-          echo test="$ES_ID" >> .env
+          echo ESCLOUDID="$ES_ID" >> .env
+          echo ESUSERNAME="$ES_USER" >> .env
+          echo ESPASSWORD="$ES_PW" >> .env
           cat .env
-
-      # - name: Upload Build Outputs
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: env
-      #     path: .env
-
-
 
   build:
     #uses: bogeorge/github_workflows/.github/workflows/build_yarn.yml@v2.0
     uses: ./.github/workflows/build_yarn.yml
+    # with:
+    #   ENV-MAP: alpha-es:id=ESCLOUDID,alpha-es:user=ESUSERNAME,alpha-es:pw=ESPASSWORD
     needs: [test-secrets-manager]
 
   deploy-alpha:

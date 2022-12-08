@@ -12,6 +12,7 @@ version=0.1
 #       https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateStack.html#API_CreateStack_RequestParameters
 #   parameter_overrides
 #       Using this to pass parameters to template.yml dynamically as part of deployment so we can vary them by environment
+#       ESSecretName - varying this by environment allows us to specify a unique secret name to pull into our environment variables in the template.yml
 
 # Parameters for alpha application environment
 [alpha.global.parameters]
@@ -23,7 +24,7 @@ resolve_s3 = true
 capabilities = "CAPABILITY_IAM"
 parameter_overrides = [
     "LamdaFunctionName=sample-application-api-alpha",
-    "ESSecretName=alpha-es",
+    "ESSecretName=alpha-es"
 ]
 tags = "STAGE=\"alpha\" TYPE=\"backend-api\""
 
@@ -50,7 +51,8 @@ fail_on_empty_changeset = false
 resolve_s3 = true
 capabilities = "CAPABILITY_IAM"
 parameter_overrides = [
-    "LamdaFunctionName=sample-application-api-qa"
+    "LamdaFunctionName=sample-application-api-qa",
+    "ESSecretName=qa-es",    
 ]
 tags = "STAGE=\"qa\" TYPE=\"backend-api\""
 
@@ -63,7 +65,8 @@ fail_on_empty_changeset = false
 resolve_s3 = true
 capabilities = "CAPABILITY_IAM"
 parameter_overrides = [
-    "LamdaFunctionName=sample-application-api-uat"
+    "LamdaFunctionName=sample-application-api-uat",
+    "ESSecretName=uat-es",     
 ]
 tags = "STAGE=\"uat\" TYPE=\"backend-api\""
 
@@ -76,6 +79,7 @@ fail_on_empty_changeset = false
 resolve_s3 = true
 capabilities = "CAPABILITY_IAM"
 parameter_overrides = [
-    "LamdaFunctionName=sample-application-api-prod"
+    "LamdaFunctionName=sample-application-api-prod",
+    "ESSecretName=prod-es",     
 ]
 tags = "STAGE=\"prod\" TYPE=\"backend-api\""

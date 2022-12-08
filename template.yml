@@ -47,6 +47,7 @@ Resources:
       #     - Arn
       Handler: dist/lambda.handler
       Description: Sample APIs
+      # resolve the secret dynamically from the secret manager
       # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/dynamic-references.html#dynamic-references-secretsmanager
       Environment:        
         Variables:
