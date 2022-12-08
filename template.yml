@@ -50,11 +50,9 @@ Resources:
       Environment:
         Variables:
           #{{resolve:secretsmanager:alpha-es:SecretString:user}}
-          ESCLOUDID: !Join
-                      - ''
-                      - - '{{resolve:secretsmanager:'
-                      - 'alpha-es'
-                      - ':SecretString:user}}'               
+          ESCLOUDID: !Sub
+                      - '{{resolve:secretsmanager:${SecretName}:SecretString:user}}'
+                      - SecretName: 'alpha-es'
       Events:
         RootEndpoint:
           Properties:
