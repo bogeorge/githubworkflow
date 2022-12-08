@@ -61,9 +61,9 @@ jobs:
 
       - name: Execute Script to create environment file
         uses: actions/github-script@v6
-          with: 
-            script: | 
-              console.log('hellow world')
+        with: 
+          script: | 
+            console.log('hellow world')
 
       - name: Execute Unit Tests
         run: yarn test
