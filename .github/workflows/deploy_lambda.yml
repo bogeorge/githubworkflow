@@ -50,6 +50,20 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS-REGION: ${{ inputs.AWS-REGION }}
 
+      - name: Read secrets from AWS Secrets Manager into environment variables
+        uses: aws-actions/aws-secretsmanager-get-secrets@v1
+        with:
+          secret-ids: |
+            ES, alpha-es
+          parse-json-secrets: true
+
+      - name: Check if env variable is set after fetching secrets
+        run: |
+          echo test="$ES_ID" >> .env
+          echo test="$ES_USER" >> .env
+          echo test="$ES_PW" >> .env
+          cat .env          
+
       - name: Build App Using SAM CLI
         run: sam build --config-env ${{ inputs.ENVIRONMENT-STAGE }}          
 

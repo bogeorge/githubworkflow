@@ -34,11 +34,11 @@ jobs:
           echo test="$ES_ID" >> .env
           cat .env
 
-      - name: Upload Build Outputs
-        uses: actions/upload-artifact@v3
-        with:
-          name: env
-          path: .env
+      # - name: Upload Build Outputs
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: env
+      #     path: .env
 
 
 
