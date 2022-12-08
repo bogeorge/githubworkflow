@@ -36,7 +36,8 @@ fail_on_empty_changeset = false
 resolve_s3 = true
 capabilities = "CAPABILITY_IAM"
 parameter_overrides = [
-    "LamdaFunctionName=sample-application-api-beta"
+    "LamdaFunctionName=sample-application-api-beta",
+    "ESSecretName=beta-es",    
 ]
 tags = "STAGE=\"beta\" TYPE=\"backend-api\""
 

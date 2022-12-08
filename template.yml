@@ -47,7 +47,8 @@ Resources:
       #     - Arn
       Handler: dist/lambda.handler
       Description: Sample APIs
-      Environment:
+      # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/dynamic-references.html#dynamic-references-secretsmanager
+      Environment:        
         Variables:
           ESPASSWORD: !Sub
             - '{{resolve:secretsmanager:${SecretName}:SecretString:pw}}'
