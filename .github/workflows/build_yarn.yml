@@ -6,10 +6,14 @@ name: Build and Test
 on:
   workflow_call:
     inputs:
-      ENV-SECRETS:
+      SECRETS-TO-PULL:
         type: string
         description: 
         required: false
+      ENV-SCRIPT:
+        type: string
+        description: 
+        required: false        
       AWS-REGION:
         type: string
         description:  Region to deploy to
@@ -52,15 +56,14 @@ jobs:
         uses: aws-actions/aws-secretsmanager-get-secrets@v1
         with:
           secret-ids: |
-            ${{ inputs.ENV-SECRETS}}
+            ${{ inputs.SECRETS-TO-PULL}}
           parse-json-secrets: true
 
-      - name: Check if env variable is set after fetching secrets
-        run: |
-          echo ESCLOUDID="$ES_ID" >> .env
-          echo ESUSERNAME="$ES_USER" >> .env
-          echo ESPASSWORD="$ES_PW" >> .env
-          cat .env
+      - name: Execute Script to create environment file
+        uses: actions/github-script@v6
+          with:
+            script: |
+              ${{ inputs.ENV-SCRIPT}}
 
       - name: Execute Unit Tests
         run: yarn test
