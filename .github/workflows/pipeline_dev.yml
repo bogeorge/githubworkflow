@@ -12,24 +12,24 @@ on:
 
 jobs:
 
-test-secrets-manager:
-  steps:
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.ALPHA_AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.ALPHA_AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-2
+  test-secrets-manager:
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.ALPHA_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.ALPHA_AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
 
-    - name: Read secrets from AWS Secrets Manager into environment variables
-      uses: abhilash1in/aws-secrets-manager-action@v2.1.0
-      with:
-        secrets: |
-          alpha-es
-        parse-json: true
+      - name: Read secrets from AWS Secrets Manager into environment variables
+        uses: abhilash1in/aws-secrets-manager-action@v2.1.0
+        with:
+          secrets: |
+            alpha-es
+          parse-json: true
 
-    - name: Check if env variable is set after fetching secrets
-      run: if [ -z ${alpha-es+x} ]; then echo "alpha-es is unset"; else echo "alpha-es is set to '$alpha-es'"; fi
+      - name: Check if env variable is set after fetching secrets
+        run: if [ -z ${alpha-es+x} ]; then echo "alpha-es is unset"; else echo "alpha-es is set to '$alpha-es'"; fi
 
 
 
