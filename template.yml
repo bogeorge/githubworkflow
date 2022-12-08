@@ -49,10 +49,15 @@ Resources:
       Description: Sample APIs
       Environment:
         Variables:
-          #{{resolve:secretsmanager:alpha-es:SecretString:user}}
+          ESPASSWORD: !Sub
+            - '{{resolve:secretsmanager:${SecretName}:SecretString:pw}}'
+            - SecretName: !Ref ESSecretName
+          ESUSERNAME: !Sub
+            - '{{resolve:secretsmanager:${SecretName}:SecretString:user}}'
+            - SecretName: !Ref ESSecretName                    
           ESCLOUDID: !Sub
-                      - '{{resolve:secretsmanager:${SecretName}:SecretString:user}}'
-                      - SecretName: 'alpha-es'
+            - '{{resolve:secretsmanager:${SecretName}:SecretString:id}}'
+            - SecretName: !Ref ESSecretName
       Events:
         RootEndpoint:
           Properties:
