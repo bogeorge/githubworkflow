@@ -60,28 +60,17 @@ jobs:
           parse-json-secrets: true
 
       - name: Execute Script to create environment file
-        uses: actions/github-script@v6
-          with:
-            script: |
-              while IFS= read -r ${{inputs.ENV-SCRIPT}}; do
-                echo %s >> .env
-              done
-              cat .env
+        run: |
+          while IFS= read -r ${{inputs.ENV-SCRIPT}}; do
+            echo %s >> .env
+          done
+          cat .env
+
+      - name: Execute Unit Tests
+        run: yarn test
 
           # echo ESCLOUDID="$ES_ID" >> .env
           # echo ESUSERNAME="$ES_USER" >> .env
           # echo ESPASSWORD="$ES_PW" >> .env
           # echo ESPASSWORD="$ES_PW" >> .env
           # cat .env 
-
-      - name: Execute Unit Tests
-        run: yarn test
-
-      # # generate our documentation
-      # # - run: yarn doc
-
-      # - name: Upload Build Outputs
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: dist
-      #     path: dist
