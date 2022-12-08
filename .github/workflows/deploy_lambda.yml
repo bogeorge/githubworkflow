@@ -59,9 +59,9 @@ jobs:
 
       - name: Check if env variable is set after fetching secrets
         run: |
-          echo test="$ES_ID" >> .env
-          echo test="$ES_USER" >> .env
-          echo test="$ES_PW" >> .env
+          echo ES_ID="$ES_ID" >> .env
+          echo ES_USER="$ES_USER" >> .env
+          echo ES_PW="$ES_PW" >> .env
           cat .env          
 
       - name: Build App Using SAM CLI

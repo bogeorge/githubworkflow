@@ -46,7 +46,10 @@ Resources:
       #     - MainFunctionRole
       #     - Arn
       Handler: dist/lambda.handler
-      Description: Sample APIs  
+      Description: Sample APIs
+      Environment:
+        Variables:
+          ES_ID: '{{resolve:secretsmanager:alpha-es:id}}'
       Events:
         RootEndpoint:
           Properties:
