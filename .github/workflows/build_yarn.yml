@@ -62,8 +62,11 @@ jobs:
       - name: Execute Script to create environment file
         uses: actions/github-script@v6
         with: 
-          script: | 
-            console.log('${{inputs.ENV-SCRIPT}}')
+          script: |             
+            const variables = ${{inputs.ENV-SCRIPT}}.split(',')
+            for(let i=0; i < variables.length; i++) {
+              console.log(variables[i])
+            }
 
       - name: Execute Unit Tests
         run: yarn test
