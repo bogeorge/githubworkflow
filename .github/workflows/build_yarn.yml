@@ -63,7 +63,7 @@ jobs:
         uses: actions/github-script@v6
         with: 
           script: | 
-            console.log('hellow world')
+            console.log('${{inputs.ENV-SCRIPT}}')
 
       - name: Execute Unit Tests
         run: yarn test
