@@ -4,7 +4,8 @@ import { env } from 'node:process';
 export class AppService {
   getHello(): string {
 
-    console.log(env.ES_ID)
+    console.log(`ES_ID: ${env.ES_ID}`)
+    console.log(`ESCLOUDID: ${env.ESCLOUDID}`)
 
     return 'Hello World!!';
   }
