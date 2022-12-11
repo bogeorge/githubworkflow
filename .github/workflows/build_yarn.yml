@@ -64,14 +64,22 @@ jobs:
 
       - name: Execute Script to create environment file
         if: ${{ inputs.ENV-SCRIPT != ''}}
-        uses: actions/github-script@v6
-        with: 
-          script: |             
-            const variables = ${{inputs.ENV-SCRIPT}}.split(',')
-            for(let i=0; i < variables.length; i++) {
-              const map = variables.split('=')
-              echo map[0] >> .env
-            }
+        run: |
+          maps=$(echo {{inputs.ENV-SCRIPT}} | tr ";" "\n")
+          for map in $maps
+          do
+            echo "[$map] >> .env"
+          done
+
+
+        # uses: actions/github-script@v6
+        # with: 
+        #   script: |             
+        #     const variables = ${{inputs.ENV-SCRIPT}}.split(',')
+        #     for(let i=0; i < variables.length; i++) {
+        #       const map = variables.split('=')
+        #       echo map[0] >> .env
+        #     }
 
       - name: Execute Unit Tests
         run: yarn test
