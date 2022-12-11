@@ -12,7 +12,7 @@ describe('AppController (e2e)', () => {
       imports: [AppModule],
     }).compile();
 
-    console.log(env)
+    console.log(env.ES_ID)
 
     app = moduleFixture.createNestApplication();
     await app.init();
