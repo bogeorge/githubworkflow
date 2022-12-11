@@ -59,7 +59,7 @@ jobs:
         uses: aws-actions/aws-secretsmanager-get-secrets@v1
         with:
           secret-ids: |
-            ${{ inputs.SECRETS-TO-PULL}}
+            ${{ inputs.SECRETS-TO-PULL }}
           parse-json-secrets: true
 
       - name: Execute Script to create environment file
