@@ -65,11 +65,12 @@ jobs:
       - name: Execute Script to create environment file
         if: ${{ inputs.ENV-SCRIPT != ''}}
         run: |
-          maps=$(echo {{inputs.ENV-SCRIPT}} | tr ";" "\n")
+          maps=$(echo ${{inputs.ENV-SCRIPT}} | tr "," "\n")
           for map in $maps
           do
             echo "[$map] >> .env"
           done
+          cat .env
 
 
         # uses: actions/github-script@v6
