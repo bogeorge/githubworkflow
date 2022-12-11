@@ -9,11 +9,7 @@ on:
       SECRETS-TO-PULL:
         type: string
         description: 
-        required: false
-      ENV-SCRIPT:
-        type: string
-        description: 
-        required: false        
+        required: false       
       AWS-REGION:
         type: string
         description:  Region to deploy to

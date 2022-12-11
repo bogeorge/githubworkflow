@@ -38,14 +38,14 @@ jobs:
 
   build:
     uses: ./.github/workflows/build_yarn.yml
-    with:
-      AWS-REGION: us-east-2
-      SECRETS-TO-PULL: |
-        ES,alpha-es
-      ENV-SCRIPT: "ESCLOUDID=$ES_ID,ESUSERNAME=$ES_USER"
-    secrets: 
-      AWS_ACCESS_KEY_ID: ${{ secrets.ALPHA_AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.ALPHA_AWS_SECRET_ACCESS_KEY }}    
+    # with:
+    #   AWS-REGION: us-east-2
+    #   SECRETS-TO-PULL: |
+    #     ES,alpha-es
+    #   ENV-SCRIPT: "ESCLOUDID=$ES_ID,ESUSERNAME=$ES_USER"
+    # secrets: 
+    #   AWS_ACCESS_KEY_ID: ${{ secrets.ALPHA_AWS_ACCESS_KEY_ID }}
+    #   AWS_SECRET_ACCESS_KEY: ${{ secrets.ALPHA_AWS_SECRET_ACCESS_KEY }}    
 
   deploy-alpha:
     if: ${{ startsWith(github.event.head_commit.message, '#alpha') }}
