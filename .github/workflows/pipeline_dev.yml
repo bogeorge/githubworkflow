@@ -44,7 +44,7 @@ jobs:
       SECRETS-TO-PULL: |
         ES,alpha-es
         ET,alpha-test
-      ENV-SCRIPT: "ESCLOUDID='$ES_ID',ESUSERNAME='$ES_USER'"
+      ENV-SCRIPT: "ESCLOUDID=$ES_ID,ESUSERNAME=$ES_USER"
     secrets: 
       AWS_ACCESS_KEY_ID: ${{ secrets.ALPHA_AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.ALPHA_AWS_SECRET_ACCESS_KEY }}    

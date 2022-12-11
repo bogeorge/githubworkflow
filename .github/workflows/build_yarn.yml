@@ -68,7 +68,9 @@ jobs:
           script: |             
             const variables = ${{inputs.ENV-SCRIPT}}.split(',')
             for(let i=0; i < variables.length; i++) {
-              console.log(variables[i])
+              const map = variables.split('=')
+              console.log(map[0])
+              console.log(map[1])
             }
 
       - name: Execute Unit Tests
