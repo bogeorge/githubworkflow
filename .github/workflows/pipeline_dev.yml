@@ -40,7 +40,7 @@ jobs:
     uses: ./.github/workflows/build_yarn.yml
     with:
       AWS-REGION: us-east-2
-      SECRETS-TO-PULL: "ES,alpha-es"\ET,alpha-test"
+      SECRETS-TO-PULL: "ES,alpha-es\"ET,alpha-test"
       ENV-SCRIPT: "ESCLOUDID=$ES_ID,ESUSERNAME=$ES_USER"
     secrets: 
       AWS_ACCESS_KEY_ID: ${{ secrets.ALPHA_AWS_ACCESS_KEY_ID }}
