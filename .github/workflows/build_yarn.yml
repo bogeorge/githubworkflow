@@ -53,6 +53,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ inputs.AWS-REGION }}
 
+      # https://github.com/aws-actions/aws-secretsmanager-get-secrets
       - name: Read secrets from AWS Secrets Manager into environment variables
         if: ${{ inputs.SECRETS-TO-PULL != ''}}
         uses: aws-actions/aws-secretsmanager-get-secrets@v1
