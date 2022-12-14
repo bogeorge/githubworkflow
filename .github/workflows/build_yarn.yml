@@ -6,7 +6,7 @@ name: Build and Test
 on:
   workflow_call:
     inputs:
-      SECRETS-TO-PULL:
+      AWS-SECRETS-TO-PULL:
         type: string
         description: 
         required: false       
@@ -27,7 +27,7 @@ jobs:
     steps:
 
       - name: Clone ${{ github.repository }} repo to the runner
-        uses: actions/checkout@v3 #checkout repo to github/workspace
+        uses: actions/checkout@v3
 
       - name: Setup Node
         uses: actions/setup-node@v3
@@ -49,7 +49,8 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ inputs.AWS-REGION }}
 
-      # https://github.com/aws-actions/aws-secretsmanager-get-secrets
+      # Pull secrets into environment variables
+      # For more see: https://github.com/aws-actions/aws-secretsmanager-get-secrets
       - name: Read secrets from AWS Secrets Manager into environment variables
         if: ${{ inputs.SECRETS-TO-PULL != ''}}
         uses: aws-actions/aws-secretsmanager-get-secrets@v1
@@ -58,31 +59,5 @@ jobs:
             ${{ inputs.SECRETS-TO-PULL }}
           parse-json-secrets: true
 
-      # - name: Execute Script to create environment file
-      #   if: ${{ inputs.ENV-SCRIPT != ''}}
-      #   run: |
-      #     maps=$(echo ${{inputs.ENV-SCRIPT}} | tr "," "\n")
-      #     for map in $maps
-      #     do
-      #       echo "[$map] >> .env"
-      #     done
-      #     cat .env
-
-
-        # uses: actions/github-script@v6
-        # with: 
-        #   script: |             
-        #     const variables = ${{inputs.ENV-SCRIPT}}.split(',')
-        #     for(let i=0; i < variables.length; i++) {
-        #       const map = variables.split('=')
-        #       echo map[0] >> .env
-        #     }
-
       - name: Execute Unit Tests
         run: yarn test
-
-          # echo ESCLOUDID="$ES_ID" >> .env
-          # echo ESUSERNAME="$ES_USER" >> .env
-          # echo ESPASSWORD="$ES_PW" >> .env
-          # echo ESPASSWORD="$ES_PW" >> .env
-          # cat .env 
