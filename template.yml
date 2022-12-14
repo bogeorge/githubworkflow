@@ -43,7 +43,7 @@ Resources:
   MainFunction:
     Type: AWS::Serverless::Function
     Metadata:
-      BuildMethod: makefile    
+      BuildMethod: makefile
     Properties:
       FunctionName: 
         Ref: LamdaFunctionName
@@ -59,7 +59,7 @@ Resources:
             - SecretName: !Ref ESSecretName                    
           ESCLOUDID: !Sub
             - '{{resolve:secretsmanager:${SecretName}:SecretString:id}}'
-            - SecretName: !Ref ESSecretName
+            - SecretName: !Ref ESSecretName        
       Handler: dist/lambda.handler
       Description: Sample APIs
       Events:

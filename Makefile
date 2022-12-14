@@ -12,6 +12,7 @@ build-lambda-common:
 	npm install -g @nestjs/cli 
 	rm -rf dist
 	nest build
+	cp package.json "$(ARTIFACTS_DIR)/"
 	cp -r dist "$(ARTIFACTS_DIR)/"
 
 # TODO revisit copying of package-lock.json.  Do we need to check for existence and then copy or should we expect it always to be there
