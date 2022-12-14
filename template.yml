@@ -19,7 +19,11 @@ Globals:
     MemorySize: 128
     Timeout: 100
     Architectures:
-    - arm64  
+    - arm64
+    Environment:
+      Variables:
+        IS_OFFLINE: true
+        NODE_DEV: DEV
 
 Parameters:
   LamdaFunctionName:
@@ -29,6 +33,8 @@ Parameters:
     Type: String
     Description: Name of the Secret that contains Elastic Search Information
 
+# Resources declares the AWS resources that you want to include in the stack
+# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
 Resources:
   # Each Lambda function is defined by properties:
   # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
@@ -41,12 +47,6 @@ Resources:
     Properties:
       FunctionName: 
         Ref: LamdaFunctionName
-      # Role:
-      #   Ref: !GetAtt
-      #     - MainFunctionRole
-      #     - Arn
-      Handler: dist/lambda.handler
-      Description: Sample APIs
       # resolve the secret dynamically from the secret manager
       # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/dynamic-references.html#dynamic-references-secretsmanager
       Environment:        
@@ -60,6 +60,8 @@ Resources:
           ESCLOUDID: !Sub
             - '{{resolve:secretsmanager:${SecretName}:SecretString:id}}'
             - SecretName: !Ref ESSecretName
+      Handler: dist/lambda.handler
+      Description: Sample APIs
       Events:
         RootEndpoint:
           Properties:
@@ -70,24 +72,7 @@ Resources:
           Properties:
             Method: ANY
             Path: /{proxy+}
-          Type: Api      
-
-  # MainFunctionRole:
-  #   Type: AWS::IAM:Role
-  #   Properties:
-  #     RoleName: 
-  #       Ref: RoleName    
-  #     ManagedPolicyArns:
-  #       - 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
-  #     AssumeRolePolicyDocument:
-  #       Version: '2012-10-17'
-  #       Statement:
-  #         - Action:
-  #           - 'sts:AssumeRole'
-  #           Effect: Allow
-  #           Principal:
-  #             Service:
-  #               - lamda.amazonaws.com
+          Type: Api
 
   # Shared layer with Lambda runtime dependencies
   RuntimeDependenciesLayer:
@@ -99,4 +84,9 @@ Resources:
       ContentUri: ./
       CompatibleRuntimes:
         - nodejs18.x
-      RetentionPolicy: Retain      
+      RetentionPolicy: Retain
+
+Outputs:
+  WebEndpoint:
+    Description: "API Gateway endpoint URL for Prod stage"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
