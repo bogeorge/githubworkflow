@@ -41,23 +41,23 @@ jobs:
       - name: Lint Application
         run: yarn lint
 
-      - name: Configure AWS Credentials
-        if: ${{ inputs.SECRETS-TO-PULL != ''}}
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ inputs.AWS-REGION }}
+      # - name: Configure AWS Credentials
+      #   if: ${{ inputs.SECRETS-TO-PULL != ''}}
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     aws-region: ${{ inputs.AWS-REGION }}
 
-      # Pull secrets into environment variables
-      # For more see: https://github.com/aws-actions/aws-secretsmanager-get-secrets
-      - name: Read secrets from AWS Secrets Manager into environment variables
-        if: ${{ inputs.SECRETS-TO-PULL != ''}}
-        uses: aws-actions/aws-secretsmanager-get-secrets@v1
-        with:
-          secret-ids: |
-            ${{ inputs.SECRETS-TO-PULL }}
-          parse-json-secrets: true
+      # # Pull secrets into environment variables
+      # # For more see: https://github.com/aws-actions/aws-secretsmanager-get-secrets
+      # - name: Read secrets from AWS Secrets Manager into environment variables
+      #   if: ${{ inputs.SECRETS-TO-PULL != ''}}
+      #   uses: aws-actions/aws-secretsmanager-get-secrets@v1
+      #   with:
+      #     secret-ids: |
+      #       ${{ inputs.SECRETS-TO-PULL }}
+      #     parse-json-secrets: true
 
-      - name: Execute Unit Tests
-        run: yarn test
+      # - name: Execute Unit Tests
+      #   run: yarn test
