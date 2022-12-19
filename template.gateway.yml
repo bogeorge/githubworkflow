@@ -25,11 +25,6 @@ Globals:
         IS_OFFLINE: true
         NODE_DEV: DEV
 
-Parameters:
-  ApiGatewayName:
-    Type: String
-    Description: Name of the Shared API Gateway
-
 # Resources declares the AWS resources that you want to include in the stack
 # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
 Resources:
