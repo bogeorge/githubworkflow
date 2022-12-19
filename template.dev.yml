@@ -63,10 +63,14 @@ Resources:
       Events:
         RootEndpoint:
           Properties:
+            RestApiId: 
+              - Fn::ImportValue: !Sub "{environment}-BasicAWSApiGateway-RestApiId"
             Method: ANY
             Path: /
           Type: Api
         EverythingElse:
+            RestApiId: 
+              - Fn::ImportValue: !Sub "{environment}-BasicAWSApiGateway-RestApiId"        
           Properties:
             Method: ANY
             Path: /{proxy+}
