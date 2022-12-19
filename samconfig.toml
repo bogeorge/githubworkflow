@@ -24,7 +24,8 @@ resolve_s3 = true
 capabilities = "CAPABILITY_IAM"
 parameter_overrides = [
     "LamdaFunctionName=sample-application-api-alpha",
-    "ESSecretName=alpha-es"
+    "ESSecretName=alpha-es",
+    "ApiGatewayId=a1wn86fah1"
 ]
 tags = "STAGE=\"alpha\" TYPE=\"backend-api\""
 
