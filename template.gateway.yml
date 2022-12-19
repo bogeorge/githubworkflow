@@ -54,11 +54,16 @@ Resources:
             Method: get
             RestApiId:
               Ref: SharedApiGateway
-      Runtime: python3.7
       Handler: index.handler
       InlineCode: |
-        def handler(event, context):
-            return {'body': 'Hello World!', 'statusCode': 200}
+        exports.handler = function(event, context, callback) {
+        console.log(event);
+            const response = {
+                statusCode: 200,
+                body: JSON.stringify('Hello Node')
+            };
+            callback(null, response);
+        };
 
 
 Outputs:
