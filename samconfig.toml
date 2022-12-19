@@ -25,7 +25,7 @@ capabilities = "CAPABILITY_IAM"
 parameter_overrides = [
     "LamdaFunctionName=sample-application-api-alpha",
     "ESSecretName=alpha-es",
-    "ApiGatewayId=a1wn86fah1"
+    "ApiGatewayName=shared-gateway-alpha",
 ]
 tags = "STAGE=\"alpha\" TYPE=\"backend-api\""
 

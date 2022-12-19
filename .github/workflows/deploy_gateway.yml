@@ -1,0 +1,57 @@
+#----------------------------------------------------------------------------------------------------------------------
+# This reusable workflow is intended to be called for each different deployment target with a environment input used 
+# to set the environment which will determine the secrets pulled for deployment.
+# It is based on information from the below link
+# https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/deploying-using-github.html
+#----------------------------------------------------------------------------------------------------------------------
+name: Deploy Lambda
+
+on:
+  workflow_call:
+    inputs:
+      ENVIRONMENT-STAGE:
+        type: string
+        description: Application Environment to deploy to (e.g alpha, beta, qa, uat, prod )
+        required: true
+      AWS-REGION:
+        type: string
+        description:  Region to deploy to
+        required: true
+    secrets: 
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
+
+
+jobs:
+  deploy: 
+    # name: Deploy ${{ inputs.ENVIRONMENT-STAGE }} 
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.ENVIRONMENT-STAGE }}
+
+    steps:
+      # - name: Debugging Secrets to make sure the right version by environment is set
+      #   run: echo ${{ secrets.AWS_SECRET_ACCESS_KEY }}| sed 's/./& /g'
+
+      - name: Clone ${{ github.repository }} repo to the runner
+        uses: actions/checkout@v3 #checkout repo to github/workspace
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+      
+      - name: Setup SAM CLI
+        uses: aws-actions/setup-sam@v2
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS-REGION: ${{ inputs.AWS-REGION }}         
+
+      - name: Build App Using SAM CLI
+        run: sam build --config-env ${{ inputs.ENVIRONMENT-STAGE }} --template-file template.gateway.yml          
+
+      - name: Deploy Using SAM CLI
+        run: sam deploy --config-env ${{ inputs.ENVIRONMENT-STAGE }} --template-file template.gateway.yml 
