@@ -51,7 +51,12 @@ jobs:
           AWS-REGION: ${{ inputs.AWS-REGION }}         
 
       - name: Build App Using SAM CLI
-        run: sam build --config-env ${{ inputs.ENVIRONMENT-STAGE }} --template-file template.gateway.yml          
+        run: sam build \
+          --config-env ${{ inputs.ENVIRONMENT-STAGE }} \
+          --template-file template.gateway.yml          
 
       - name: Deploy Using SAM CLI
-        run: sam deploy --config-env ${{ inputs.ENVIRONMENT-STAGE }} --template-file template.gateway.yml 
+        run: sam deploy \
+          --config-env ${{ inputs.ENVIRONMENT-STAGE }} \
+          --template-file template.gateway.yml \
+          --stack-name "sample-application-gateway-${{ inputs.ENVIRONMENT-STAGE }}"

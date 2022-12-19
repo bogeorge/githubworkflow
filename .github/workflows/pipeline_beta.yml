@@ -32,4 +32,4 @@ jobs:
     secrets: 
       AWS_ACCESS_KEY_ID: ${{ secrets.ALPHA_AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.ALPHA_AWS_SECRET_ACCESS_KEY }}
-    needs: [ deploy-beta, build ]    
+    needs: [ build ]    
