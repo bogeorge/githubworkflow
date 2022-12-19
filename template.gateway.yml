@@ -41,10 +41,10 @@ Resources:
 Outputs:
   SharedAWSApiGatewayRestApiId:
     Description: 'API Gateway ARN for Basic AWS API Gateway'
-    Value: !Ref BasicAWSApiGateway
+    Value: !Ref SharedApiGateway
     Export:
       Name: !Sub "{environment}-BasicAWSApiGateway-RestApiId"
   SharedAWSApiGatewayRootResourceId:
-    Value: !GetAtt BasicAWSApiGateway.RootResourceId
+    Value: !GetAtt SharedApiGateway.RootResourceId
     Export:
       Name: !Sub "{environment}-BasicAWSApiGateway-RootResourceId"
