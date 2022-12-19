@@ -32,6 +32,9 @@ Parameters:
   ESSecretName:
     Type: String
     Description: Name of the Secret that contains Elastic Search Information
+  TargetEnvironment:
+    Type: String
+    Description: Environment or Stage name this is being deployed to    
 
 # Resources declares the AWS resources that you want to include in the stack
 # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
@@ -65,13 +68,13 @@ Resources:
       Events:
         RootEndpoint:
           Properties:
-            RestApiId: !Ref ApiGatewayId 
+            RestApiId: !Sub SharedAWSApiGatewayRestApiId-${TargetEnvironment}'
             Method: ANY
             Path: /
           Type: Api
         EverythingElse:
           Properties:
-            RestApiId: !Ref ApiGatewayId 
+            RestApiId: !Sub SharedAWSApiGatewayRestApiId-${TargetEnvironment}'
             Method: ANY
             Path: /{proxy+}
           Type: Api

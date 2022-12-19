@@ -25,6 +25,11 @@ Globals:
         IS_OFFLINE: true
         NODE_DEV: DEV
 
+Parameters:
+  TargetEnvironment:
+    Type: String
+    Description: Environment or Stage name this is being deployed to
+
 # Resources declares the AWS resources that you want to include in the stack
 # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
 Resources:
@@ -35,7 +40,7 @@ Resources:
   SharedApiGateway:
     Type: AWS::Serverless::Api
     Properties:
-      Name: !Sub "ApiGatewayName=shared-gateway-{environment}"
+      Name: !Sub 'shared-gateway-${TargetEnvironment}'
       StageName: Staging
 
 Outputs:
@@ -43,8 +48,4 @@ Outputs:
     Description: 'API Gateway ARN for Basic AWS API Gateway'
     Value: !Ref SharedApiGateway
     Export:
-      Name: !Sub "${environment}-BasicAWSApiGateway-RestApiId"
-  SharedAWSApiGatewayRootResourceId:
-    Value: !GetAtt SharedApiGateway.RootResourceId
-    Export:
-      Name: !Sub "${environment}-BasicAWSApiGateway-RootResourceId"
+      Name: !Sub 'SharedAWSApiGatewayRestApiId-${TargetEnvironment}'
