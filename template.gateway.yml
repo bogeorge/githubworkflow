@@ -41,10 +41,25 @@ Resources:
     Type: AWS::Serverless::Api
     Properties:
       Name: !Sub 'shared-gateway-${TargetEnvironment}'
-      StageName: Staging
-      MethodSettings:
-        - ResourcePath: /
-          HttpMethod: GET
+      StageName: Prod
+
+  SharedApiFunction: # Adds a GET api endpoint at "/" to the ApiGatewayApi via an Api event
+    Type: AWS::Serverless::Function
+    Properties:
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /
+            Method: get
+            RestApiId:
+              Ref: SharedApiGateway
+      Runtime: python3.7
+      Handler: index.handler
+      InlineCode: |
+        def handler(event, context):
+            return {'body': 'Hello World!', 'statusCode': 200}
+
 
 Outputs:
   SharedAWSApiGatewayRestApiId:
