@@ -42,6 +42,9 @@ Resources:
     Properties:
       Name: !Sub 'shared-gateway-${TargetEnvironment}'
       StageName: Staging
+      MethodSettings:
+        - ResourcePath: /
+          HttpMethod: GET
 
 Outputs:
   SharedAWSApiGatewayRestApiId:
