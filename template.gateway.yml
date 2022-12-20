@@ -13,8 +13,6 @@ Transform: AWS::Serverless-2016-10-31
 
 Globals:
   Function:
-    Layers:
-      - !Ref RuntimeDependenciesLayer
     Runtime: nodejs18.x
     MemorySize: 128
     Timeout: 100
