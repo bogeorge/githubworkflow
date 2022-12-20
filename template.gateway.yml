@@ -38,7 +38,7 @@ Resources:
   SharedApiGateway:
     Type: AWS::Serverless::Api
     Properties:
-      Name: !Sub 'shared-gateway-${TargetEnvironment}'
+      Name: !Sub "shared-gateway-${TargetEnvironment}"
       StageName: Prod
 
   SharedApiFunction: # Adds a GET api endpoint at "/" to the ApiGatewayApi via an Api event
@@ -69,4 +69,4 @@ Outputs:
     Description: 'API Gateway ARN for Basic AWS API Gateway'
     Value: !Ref SharedApiGateway
     Export:
-      Name: !Sub 'SharedAWSApiGatewayRestApiId-${TargetEnvironment}'
+      Name: !Sub "SharedAWSApiGatewayRestApiId-${TargetEnvironment}"
