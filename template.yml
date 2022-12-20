@@ -69,14 +69,14 @@ Resources:
         RootEndpoint:
           Properties:
             RestApiId: 
-              - Fn::ImportValue: !Sub SharedAWSApiGatewayRestApiId-${TargetEnvironment}'
+              - Fn::ImportValue: !Sub 'SharedAWSApiGatewayRestApiId-${TargetEnvironment}'
             Method: ANY
             Path: /
           Type: Api
         EverythingElse:
           Properties:
             RestApiId: 
-              - Fn::ImportValue: !Sub SharedAWSApiGatewayRestApiId-${TargetEnvironment}'
+              - Fn::ImportValue: !Sub 'SharedAWSApiGatewayRestApiId-${TargetEnvironment}'
             Method: ANY
             Path: /{proxy+}
           Type: Api
