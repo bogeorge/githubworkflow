@@ -42,6 +42,13 @@ Resources:
   # Each Lambda function is defined by properties:
   # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
 
+  SharedApiGateway:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: !Sub "shared-gateway-${TargetEnvironment}"
+      StageName: Prod
+      Mode: merge
+
   # This is a Lambda function config associated with the source code: in src/handlers/example.ts
   MainFunction:
     Type: AWS::Serverless::Function
@@ -68,15 +75,13 @@ Resources:
       Events:
         RootEndpoint:
           Properties:
-            RestApiId: 
-              - Fn::ImportValue: !Sub "SharedAWSApiGatewayRestApiId-${TargetEnvironment}"
+            RestApiId: !Ref SharedApiGateway
             Method: ANY
             Path: /
           Type: Api
         EverythingElse:
           Properties:
-            RestApiId: 
-              - Fn::ImportValue: !Sub "SharedAWSApiGatewayRestApiId-${TargetEnvironment}"
+            RestApiId: !Ref SharedApiGateway
             Method: ANY
             Path: /{proxy+}
           Type: Api
