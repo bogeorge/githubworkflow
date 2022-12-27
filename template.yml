@@ -75,16 +75,20 @@ Resources:
       Events:
         RootEndpoint:
           Properties:
-            RestApiId: !Ref SharedApiGateway
+            RestApiId: 
+              #- Ref: SharedApiGateway
+              - Fn::ImportValue: !Sub "SharedAWSApiGatewayRestApiId-${TargetEnvironment}"
             Method: ANY
             Path: /
           Type: Api
-        EverythingElse:
-          Properties:
-            RestApiId: !Ref SharedApiGateway
-            Method: ANY
-            Path: /{proxy+}
-          Type: Api
+        # EverythingElse:
+        #   Properties:
+        #     RestApiId: 
+        #     # - Ref: SharedApiGateway
+        #       - Fn::ImportValue: !Sub "SharedAWSApiGatewayRestApiId-${TargetEnvironment}"
+        #     Method: ANY
+        #     Path: /{proxy+}
+        #   Type: Api
 
   # Shared layer with Lambda runtime dependencies
   RuntimeDependenciesLayer:
