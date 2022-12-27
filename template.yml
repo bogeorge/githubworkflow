@@ -98,7 +98,7 @@ Resources:
         - nodejs18.x
       RetentionPolicy: Retain
 
-Outputs:
-  WebEndpoint:
-    Description: "API Gateway endpoint URL for Prod stage"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+# Outputs:
+#   WebEndpoint:
+#     Description: "API Gateway endpoint URL for Prod stage"
+#     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
